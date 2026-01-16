@@ -1,0 +1,163 @@
+/* .table-row-selected { */
+    /* background-color: #bfdbfe; blue-200 */
+    /* border: 2px solid #3b82f6; blue-500 */
+    /* cursor: pointer; */
+/* } */
+
+/* 
+from gemini code using tailwind css
+*/
+
+/* Custom styles for a cleaner UI */
+.card {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 0.75rem; /* rounded-xl */
+}
+.form-input {
+    transition: all 0.2s;
+}
+.form-input:focus {
+    border-color: #3b82f6; /* blue-500 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+/* Style for the active tab indicator */
+.tab-button.active {
+    border-color: #3b82f6; /* blue-500 */
+    color: #1d4ed8; /* blue-700 */
+    background-color: #eff6ff; /* blue-50 */
+}
+/* Status colors for Balances tab */
+.status-paid {
+    color: #10b981; /* green-500 */
+    background-color: #ecfdf5; /* green-50 */
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+.status-unpaid {
+    color: #ef4444; /* red-500 */
+    background-color: #fef2f2; /* red-50 */
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+/* Style for the selected table row */
+.table-row-selected {
+    background-color: #bfdbfe; /* blue-200 */
+    border-bottom: 2px solid #3b82f6; /* blue-500 */
+    cursor: pointer;
+}
+/* Ensure hover doesn't override the selected style */
+.selectable-row:not(.table-row-selected):hover {
+    background-color: #f3f4f6;
+    cursor: pointer;
+}
+
+/* pop-up window */
+/* Add to your existing <style> block or app.css */
+/* Styles for the Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Dark, semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50; /* Tailwind's z-50 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    /* Tailwind classes handle the content styling (bg-white, rounded-xl, shadow-2xl) */
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+    max-height: 90vh; /* Make sure it doesn't overflow small screens */
+    overflow-y: auto;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+/* toast alert and confirmation modal */
+.toast-alert {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    /* We must keep the -50% on X, while moving Y up */
+    transform: translate(-50%, -100%); 
+    z-index: 100;
+}
+
+.toast-alert.active {
+    opacity: 1;
+    /* We must keep the -50% on X, while resetting Y to 0 */
+    /* The top-4 in your HTML handles the vertical spacing */
+    transform: translate(-50%, 0); 
+}
+/*  */
+div#selfDatas {
+    margin-bottom: 20px;
+}
+
+/* Container that holds the 3D space */
+/* Container */
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    /* No fixed height needed - it will grow with content */
+}
+
+/* Inner Container - THE FIX */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    
+    /* NEW: Use Grid to stack children exactly on top of each other */
+    display: grid;
+    grid-template-areas: "stack"; 
+}
+
+/* Common Styles for Front and Back */
+.flip-card-front, .flip-card-back {
+    /* NEW: Both occupy the exact same grid space */
+    grid-area: stack;
+    
+    /* Standard 3D styles */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%; /* Ensure they fill the width */
+}
+
+/* Front Face */
+.flip-card-front {
+    background-color: white;
+    transform: rotateY(0deg); /* Explicitly set base rotation */
+    z-index: 2;
+}
+
+/* Back Face */
+.flip-card-back {
+    transform: rotateY(180deg);
+    /* No absolute position needed anymore! */
+}
+
+/* Trigger Class */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
