@@ -64,17 +64,6 @@ async function addDataWithoutDocumentID(collectionName, datas) {
     }
 }
 
-//set data need userId
-async function addDataWithDocumentID(collection,docId, datas) {
-    console.log("Attempting to set new data...(setData firebase)");
-    const docRef = doc(db, collection, docId);
-    try {
-        const setRef = await setDoc(docRef, datas)
-        console.log("checking the setRef(setData firebase) - ", setRef);
-    } catch(e) {
-        console.error("❌ Error setting document(setData firebase): ", e);
-    }
-}
 //Update Data based on the collection ID
 async function updateDataWithDocumentID(collectionName, documentID, datas) {
     const updateDocRed = doc(db,collectionName,documentID);
@@ -114,70 +103,6 @@ async function getDataOnDocumentID(collectionName, documentID) {
         console.error("Error getting users(getDataOnDocumentID firebase): ", e);
     }
 }
-
-// async function deleteTransaction(transId, useruid, callback){
-//   if(!db || !useruid){
-//     console.error('Authentication required to delete data.(deleteTransaction)');
-//     return;
-//   }
-//   const transRef = doc(db, "transactions", transId)
-//   try {
-//     const transPromise = await getData('transactions', transId);
-//     const balancePromise = await getData('balance', 'cardAmount');
-//     const userPromise = await getData("users", useruid);
-//     const usedAmount = transPromise.usedAmount;
-//     const userBalance = userPromise.balance;
-//     const cardTotal = balancePromise.amount + usedAmount;
-//     const userBalanceTotal = userBalance + usedAmount;
-//     await updateData("balance", "cardAmount",{
-//       amount:cardTotal
-//     });
-//     if(userPromise.owe < 0) {
-//       let userOwe = userPromise.owe;
-//       let userOweCheck = userOwe>usedAmount?userOwe-usedAmount:usedAmount-userOwe;
-//       if(userOweCheck > 0){
-//         const payBack = userOweCheck + userBalance;
-//         await updateData("users", useruid, {
-//           balance:payBack,
-//           owe:0,
-//           oweTo:{}
-//         });
-//       } else if(userOwe == 0) {
-//         await updateData("users", useruid, {
-//           owe:0,
-//           oweTo:{}
-//         });
-//       }else{
-//         await updateData("users", useruid, {
-//           owe:userOweCheck,
-//         });
-//       }
-//     }else{
-//       await updateData("users", useruid, {
-//           balance:userBalanceTotal
-//         });
-//     }
-//     await deleteDoc(transRef);
-//     // console.log("attempting to get transactions(deleteTransaction firebase)- ", transPromise);
-//     // console.log("attempting to get Balance(deleteTransaction firebase)- ", balancePromise);
-//     // console.log(`✅ Success: Transaction document '${transId}' has been deleted(deleteTransaction firebase).`);
-//     callback("ဖျက်ပြီးပါပြီ။", 'success');
-//   }catch(e) {
-//     console.error(`❌ Error deleting transaction '${transId}'(deleteTransaction firebase):`, e);
-      
-//       // Example of simple error handling in the console:
-//       if (error.code === 'not-found') {
-//           console.error("The document does not exist.(deleteTransaction firebase)");
-//       }
-//   }
-// }
-
-// --- Firebase CRUD Ends --- 
-
-// --- Auth Management Start --- 
-
-// VVVVVV variable section VVVVVV
-// let transSubmit = ()=>{};
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!
 // +++ Auth Changing Check +++
@@ -224,19 +149,6 @@ async function manageCurrentUserThings(useruid) {
 // --- Auth Management Ends --- 
 
 // --- ...Start --- 
-
-// +++ getting username on uid
-// async function getUsernameOnUID(useruid){
-//     try{
-//         const dataPromise = await getDataOnDocumentID("users", useruid);
-//         // const username = dataPromise.name;
-//         // console.log("username from (getUsernameOnUID firebase) - ",username);
-//         return dataPromise;
-//     }catch(e){
-//         console.error("error on getting username(getUsernameOnUID firebase): ",e);
-//     }
-// }
-
 // +++ sumit the Login form +++ 
 function signInWithAcc(email, password){
     signInWithEmailAndPassword(auth, email, password)
@@ -639,9 +551,10 @@ function getUserDatas(snapshot, useruid){
 }
 
 // +++ payBack actiomn +++
-function handlePayBack(useruid, creditorId){
+function handlePayBack(useruid, creditorId, msg){
+    // setting the language
     // +++ set the confirm action
-showConfirm("Are you Sure You will pay debt?", ()=>{
+showConfirm(msg, ()=>{
     payBackProcess(useruid, creditorId);
 });
 }//async function handlePayBack(useruid, creditorId) ends
@@ -666,9 +579,9 @@ async function payBackProcess(useruid, creditorId) {
     }
 }
 // +++ accept payBack actiomn +++
-function handleAccept(useruid, debtorId){
+function handleAccept(useruid, debtorId, msg){
     // +++ set the confirm action
-showConfirm("Are you Sure You accepted the debt?", ()=>{
+showConfirm(msg, ()=>{
 
     acceptPayBackProcess(useruid, debtorId);
 });

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to HMT's Saloon Expenses">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Expense Tracker</title>
@@ -19,10 +20,10 @@
 <body class="bg-gray-50 p-4 sm:p-8">
     <div class="flex justify-between items-center mb-6">
     <div>
-        <h1 class="text-2xl font-bold text-gray-800">Expense Tracker</h1>
-        <p class="text-sm text-gray-500">Manage your group expenses</p>
+        <h1 class="text-2xl font-bold text-gray-800" data-i18n="app_title">Expense Tracker</h1>
+        <p class="text-sm text-gray-500" data-i18n="app_subtitle">Manage your group expenses</p>
     </div>
-    <button id="btn-subscribe" class="bg-yellow-500 text-white p-2 rounded-lg text-sm mt-2">
+    <button id="btn-subscribe" class="bg-yellow-500 text-white p-2 rounded-lg text-sm mt-2" data-i18n="btn_notifications">
     🔔 Turn on Notifications
     </button>
         <!-- login section and lang section -->
@@ -39,7 +40,7 @@
                 </div>
             </div>
             <div id="loginSection">
-                <button id="loginButton" onclick="openModal('mainFormModal')" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 shadow-md transition-all active:scale-95 text-sm font-medium">
+                <button id="loginButton" onclick="openModal('mainFormModal')" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 shadow-md transition-all active:scale-95 text-sm font-medium" data-i18n="login_btn">
                     Login
                 </button>
             </div>
@@ -61,7 +62,7 @@
         <div class="modal-content bg-white p-6 md:p-10 w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/3 rounded-xl shadow-2xl" onclick="event.stopPropagation()">
             
             <div class="flex justify-between items-center mb-6 border-b pb-2">
-                <h2 class="text-2xl font-semibold text-gray-800">Login 🔒</h2>
+                <h2 class="text-2xl font-semibold text-gray-800" data-i18n="login_modal_title">Login 🔒</h2>
                 <button onclick="closeModal('mainFormModal')" class="close-modal text-gray-500 hover:text-gray-900 text-3xl leading-none">
                     &times;
                 </button>
@@ -70,13 +71,14 @@
             <form id="loginForm" class="space-y-6">
                 
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <label for="email" class="block text-sm font-medium text-gray-700" data-i18n="label_email">Email Address</label>
                     <input 
                         type="email" 
                         id="email" 
                         name="email"
                         class="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="you@example.com"
+                        data-i18n="ph_email"
                         required
                     >
                 </div>
@@ -98,6 +100,7 @@
 
                 <button 
                     type="submit" 
+                    data-i18n="btn_signin"
                     class="w-full flex items-center justify-center py-3 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
                 >
                     Sign In
@@ -114,33 +117,12 @@
         <!-- Auth Cotainer -->
         <div id="authContainer" class="flex justify-end items-center mb-4">
     
-            <!-- <div id="userSection" class="hidden flex items-center space-x-4">
-                <span id="userInfo" class="text-sm font-medium text-gray-700">
-                    မင်္ဂလာပါ, <span id="userName" class="font-bold">User</span>
-                </span>
-                <button 
-                    id="logoutButton" 
-                    onclick="userLogout()"
-                    class="px-3 py-1 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 transition duration-150">
-                    Logout
-                </button>
-            </div>
-    
-            <div id="loginSection">
-                <button 
-                    id="loginButton" 
-                    onclick="openModal('mainFormModal')"
-                    class="modal-button px-3 py-1 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition duration-150">
-                    Login
-                </button>
-            </div> -->
-    
         </div>
-        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">ဆံပင်ညပ်ဆိုင်ရဲ့အသုံးစရိတ်များ 💰</h1>
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center" data-i18n="main_title">ဆံပင်ညပ်ဆိုင်ရဲ့အသုံးစရိတ်များ 💰</h1>
         <!-- show balance -->
          <div class="mb-8 text-center">
             <div class="inline-block p-4 bg-white rounded-lg shadow border border-gray-200">
-                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider">လက်ရှိကဒ်ထဲမှပိုက်ဆံ</h3>
+                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider" data-i18n="card_balance_label">လက်ရှိကဒ်ထဲမှပိုက်ဆံ</h3>
                 <span id="cardBalanceAmount" class="text-4xl font-bold text-blue-600">
                     ¥0
                 </span>
@@ -157,6 +139,7 @@
                     aria-controls="history"
                     class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out active"
                     data-tab-target="#history"
+                    data-i18n="tab_history"
                 >
                     အသုံးပြုဇယား 📊
                 </button>
@@ -168,6 +151,7 @@
                     aria-controls="balances"
                     class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out"
                     data-tab-target="#balances"
+                    data-i18n="tab_balances"
                 >
                     လက်ကျန်ငွေ 🧑‍🤝‍🧑
                 </button>
@@ -180,6 +164,7 @@
                     aria-controls="new-transaction"
                     class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out"
                     data-tab-target="#new-transaction"
+                    data-i18n="tab_new_trans"
                 >
                     အသုံးစရိတ်ထည့်သွင်းရန် ✍️
                 </button>
@@ -191,6 +176,7 @@
                     aria-controls="top-up"
                     class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out"
                     data-tab-target="#top-up"
+                    data-i18n="tab_topup"
                 >
                     ပိုက်ဆံဖြည့်ရန် ⬆️💳
                 </button>
@@ -200,7 +186,7 @@
         <div id="tab-content">
             
             <div id="history" role="tabpanel" aria-labelledby="history-tab" class="bg-gray-50 p-4 md:p-6 rounded-xl">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">အသုံးပြုထားသောစာရင်းများ</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6" data-i18n="history_title">အသုံးပြုထားသောစာရင်းများ</h2>
                 
                 <div id="transactionList" class="space-y-4">
                     </div>
@@ -211,8 +197,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-1">No Transactions Yet</h3>
-                    <p class="text-sm text-gray-500 max-w-xs">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1" data-i18n="history_empty_title">No Transactions Yet</h3>
+                    <p class="text-sm text-gray-500 max-w-xs" data-i18n="history_empty_msg">
                         It looks like there is no history data available. New transactions will appear here.
                     </p>
                 </div>
@@ -220,15 +206,15 @@
             
             <div id="balances" role="tabpanel" aria-labelledby="balances-tab" class="hidden bg-gray-50 p-4 md:p-6 rounded-xl">
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">သင်ရဲ့အချက်အလက်များ</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6" data-i18n="balances_user_title">သင်ရဲ့အချက်အလက်များ</h2>
                 <div id="selfDatas-empty-state" class="hidden flex flex-col items-center justify-center py-12 px-4 text-center animate-fade-in">
                     <div class="bg-gray-100 rounded-full p-6 mb-4 shadow-inner">
                         <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-1">No users Yet</h3>
-                    <p class="text-sm text-gray-500 max-w-xs">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1" data-i18n="balances_empty_title">No users Yet</h3>
+                    <p class="text-sm text-gray-500 max-w-xs" data-i18n="balances_empty_msg">
                         It looks like there is no user data available. Current user will appear here.
                     </p>
                 </div><!--<div id="selfDatas-empty-state" -->
@@ -249,15 +235,15 @@
                                             <p class="text-xs text-gray-500">Creditor: John Smith</p>
                                         </div>
                                     </div><!--- <div class="flex items-center gap-3 text-left"> ends -->
-                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 animate-pulse">UNPAID</span>
+                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 animate-pulse" data-i18n="card_status_unpaid">UNPAID</span>
                                 </div>
 
                                 <div class="bg-red-50 p-3 rounded-lg text-center border border-red-100 mb-4">
-                                    <p class="text-xs text-red-500 uppercase tracking-wide">My Debt</p>
+                                    <p class="text-xs text-red-500 uppercase tracking-wide" data-i18n="card_my_debt">My Debt</p>
                                     <p class="text-2xl font-bold text-red-600">-1200円</p>
                                 </div>
 
-                                <div class="text-xs text-gray-400 mt-auto">Click to Pay Back <span class="text-lg">↻</span></div>
+                                <div class="text-xs text-gray-400 mt-auto" ><span data-i18n="card_click_pay">Click to Pay Back</span><span class="text-lg">↻</span></div>
                             </div><!--- <div class="flip-card-front h-[304px] bg-white ... ends -->
 
                             <div class="flip-card-back bg-gray-900 p-6 shadow-lg border border-gray-800 relative overflow-hidden">
@@ -362,15 +348,15 @@
                 </div><!-- <div id="selfDatas" class="grid... ends -->
 
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">အဖွဲ့ဝင်စာရင်းများ</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6" data-i18n="members_title">အဖွဲ့ဝင်စာရင်းများ</h2>
                 <div id="otherUsers-empty-state" class="hidden flex flex-col items-center justify-center py-12 px-4 text-center animate-fade-in">
                     <div class="bg-gray-100 rounded-full p-6 mb-4 shadow-inner">
                         <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-1">No users Yet</h3>
-                    <p class="text-sm text-gray-500 max-w-xs">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1" data-i18n="balances_empty_title">No users Yet</h3>
+                    <p class="text-sm text-gray-500 max-w-xs" data-i18n="balances_empty_msg">
                         It looks like there is no user data available. The users will appear here.
                     </p>
                 </div><!--<div id="otherUsers-empty-state" -->
@@ -448,12 +434,12 @@
 
             <!-- Main New Transaction -->
             <div id="new-transaction" role="tabpanel" aria-labelledby="new-transaction-tab" class="card bg-white p-6 md:p-10 hidden">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2">သုံးထားတဲ့ပမာဏထည့်သွင်းပါ</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2" data-i18n="trans_form_title">သုံးထားတဲ့ပမာဏထည့်သွင်းပါ</h2>
                 <!-- Main New Transaction Form -->
                 <form id="new-transaction-form" class="space-y-6">
 
                     <div>
-                        <label for="usedAmount" class="block text-sm font-medium text-gray-700">သုံးထားတဲ့ပမာဏ(円)</label>
+                        <label for="usedAmount" class="block text-sm font-medium text-gray-700" data-i18n="label_used_amount">သုံးထားတဲ့ပမာဏ(円)</label>
                         <input 
                             type="text" 
                             inputmode="numeric" 
@@ -462,12 +448,14 @@
                             autocomplete="off" 
                             class="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none"
                             placeholder="e.g., 500"
+                            data-i18n="ph_amount"
                             required
                         >
                     </div>
 
                     <button type="submit" 
                     id="trans-submit"
+                    data-i18n="btn_submit_trans"
                     class="w-full flex justify-center py-3 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
                         ထည့်သွင်းမည်
                     </button>
@@ -476,12 +464,12 @@
             <!-- Main New Transaction ends -->
             <!-- Main Top-Up  -->
             <div id="top-up" role="tabpanel" aria-labelledby="top-up-tab" class="card bg-white p-6 md:p-10 hidden">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2">ပိုက်ဆံဖြည့်ရန်</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2" data-i18n="topup_form_title">ပိုက်ဆံဖြည့်ရန်</h2>
                 <!-- Main Top-Up Form -->
                 <form id="top-up-form" class="space-y-6">
 
                     <div>
-                        <label for="topUpAmount" class="block text-sm font-medium text-gray-700">ပိုက်ဆံဖြည့်ထားတဲ့ပမာဏ (円)</label>
+                        <label for="topUpAmount" class="block text-sm font-medium text-gray-700" data-i18n="label_topup_amount">ပိုက်ဆံဖြည့်ထားတဲ့ပမာဏ (円)</label>
                         <input 
                             type="text" 
                             inputmode="numeric" 
@@ -490,12 +478,14 @@
                             autocomplete="off"
                             class="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none"
                             placeholder="e.g., 500"
+                            data-i18n="ph_amount"
                             required
                         >
                     </div>
 
                     <button type="submit" 
                     id="topup-submit"
+                    data-i18n="btn_submit_topup"
                     class="w-full flex justify-center py-3 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
                         ဖြည့်မည်
                     </button>
@@ -507,7 +497,7 @@
     </div>
     <!-- toast alert -->
     <div id="toastAlert" 
-        class="toast-alert fixed top-4 left-1/2 p-4 rounded-md shadow-lg text-white bg-blue-600" 
+        class="toast-alert fixed top-4 left-1/2 p-4 rounded-md shadow-lg text-white bg-blue-600"
         role="alert">
         <span id="toastMessage">Success! Action completed.</span>
     </div>
@@ -523,11 +513,11 @@
                 </div>
                 
                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                    <h3 data-i18n="title_confirm_action" class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                         Confirm Action
                     </h3>
                     <div class="mt-2">
-                        <p id="confirmMessage" class="text-sm text-gray-500">
+                        <p id="confirmMessage" class="text-sm text-gray-500" data-i18n="msg_confirm_pay_debt">
                             Are you sure you want to do this? This action cannot be undone.
                         </p>
                     </div>
@@ -538,12 +528,14 @@
                 <button 
                     type="button" 
                     onclick="handleConfirm()"
+                    data-i18n="btn_confirm"
                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 sm:ml-3 sm:w-auto sm:text-sm">
                     Confirm
                 </button>
                 <button 
                     type="button" 
                     onclick="handleCancel()"
+                    data-i18n="btn_cancel"
                     class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm">
                     Cancel
                 </button>
@@ -552,6 +544,7 @@
         </div>
     </div>
 
+    <script src="./js/lang.js"></script>
     <script src="./js/uiUtils.js"></script>
     <script src="./js/firebaseBundle.js"></script>
     <!-- <script src="./js/indexBundle.js"></script> -->

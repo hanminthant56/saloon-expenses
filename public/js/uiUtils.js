@@ -120,6 +120,9 @@
         localStorage.removeItem(itemName);
     }
 
+    //for language changes 
+    
+
 
 // --- General / Global Functions ENDS ---  
 
@@ -157,17 +160,6 @@
         topupSubmit.setAttribute("disabled", "");
     }
 
-
-// @@@@ i will think about this later @@@@
-// +++ Change Eng name to Myan Name +++
-// function EngToMyanName(name) {
-//     const toMynName = {
-//         "Han Min Thant": "ဟန်မင်းသန့်"
-//     }
-    
-//     return toMynName[name];
-// }
-
 // +++ submit login form +++
 function loginForm(callback) {
     //sumit the form
@@ -203,22 +195,12 @@ function handleSignIn(username, userAvatar){
     const userSection = document.getElementById('userSection');
     const userAvatarSpan = document.getElementById('userAvatar');
     const userName = document.getElementById('userName');
-    // const username = user.name;
-    // console.log("username from (handleSignIn uiUtils) - ",username);
-    //set Items in localstorage
-    // setLocalStorage("unique_userUID",user.uid);
-    // setLocalStorage("userName",username);
     //close the login form
     closeModal('mainFormModal');
     loginSection.classList.remove('active');
     loginSection.classList.add('hidden');
     userSection.classList.remove('hidden');
     userSection.classList.add('active');
-    //to show short first charactor in icon
-    // let firstChars = "";
-    // username.split(" ").forEach(nameWord => {
-    //     firstChars += nameWord.slice(0,1);
-    // });
     userAvatarSpan.innerText = userAvatar;
     //show the user name
     userName.textContent = username;
@@ -243,7 +225,6 @@ function handleSignOut(){
     openModal('mainFormModal');
     getTTButton(disableTTButton);
     removeLocalStorage("userdatas");
-    // removeLocalStorage("unique_userUID");
 }
 
 // +++ get current datetime 
@@ -278,7 +259,15 @@ function setupTransactionForm(callback, useruid){
             const usedAmountEle = document.getElementById('usedAmount');
             const usedAmount = Number(usedAmountEle.value);
             const datetime = getCurrentDateTime();
-            showConfirm("အသုံးပြုထားသောပမာဏရိုက်ထဲ့ချင်တာသေချာပါသလား။", ()=>{
+            const savedLang = localStorage.getItem('preferred_language') || 'my';
+            let confirmText = translations[savedLang].confirm_entry_msg;
+            let msgInvalidAmount = translations[savedLang].msg_invalid_amount;
+            if(usedAmount <= 0) {
+                showToast(msgInvalidAmount, "fail");
+                usedAmountEle.value = "";
+                return;
+            }
+            showConfirm(confirmText, ()=>{
                 // Call the callback
                 callback(usedAmount, datetime, useruid);
             })
@@ -293,6 +282,11 @@ function setupTransactionForm(callback, useruid){
 function renderTransactionList(transactions, useruid) {
     const listContainer = document.getElementById('transactionList');
     const emptyState = document.getElementById('history-empty-state');
+
+    //setting the language
+    const savedLang = localStorage.getItem('preferred_language') || 'my';
+    const labelBalanceBefore = translations[savedLang].label_balance_before;
+    const labelBalanceAfter = translations[savedLang].label_balance_after;
     
     //Clear current list
     listContainer.innerHTML = '';
@@ -304,7 +298,6 @@ function renderTransactionList(transactions, useruid) {
     } else {
         emptyState.classList.add('hidden'); // Hide "No Data" UI
     }
-
     // 3. Loop through data and create HTML
     transactions.forEach(data => {
         // --- LOGIC: Determine Red vs Green ---
@@ -335,10 +328,10 @@ function renderTransactionList(transactions, useruid) {
                         </span>
                         
                         <span class="text-xs text-gray-500 mt-1">
-                            ကဒ်ပမာဏ(မသုံးခင်): <span class="font-medium text-gray-700">${data.oldCardBalance}円</span>
+                            <span data-i18n="label_balance_before">${labelBalanceBefore}</span> <span class="font-medium text-gray-700">${data.oldCardBalance}円</span>
                         </span>
                         <span class="text-xs text-gray-500 mt-1">
-                            ကဒ်ပမာဏ(သုံးပြီး): <span class="font-medium text-gray-700">${data.newCardBalance}円</span>
+                            <span data-i18n="label_balance_after">${labelBalanceAfter}</span> <span class="font-medium text-gray-700">${data.newCardBalance}円</span>
                         </span>
                     </div>
                 </div>
@@ -369,6 +362,30 @@ function renderTransactionList(transactions, useruid) {
 // +++ render user list
 function renderSelfList(selfDatas, useruid) {
     const listContainer = document.getElementById('selfDatas');
+    //setting the language
+    const savedLang = localStorage.getItem('preferred_language') || 'my';
+    const cardClickPay = translations[savedLang].card_click_pay;
+    const statusHasDebt = translations[savedLang].status_has_debt;
+    const statusClearDebt = translations[savedLang].status_clear_debt;
+    const labelAmount = translations[savedLang].label_amount;
+    const labelDebt = translations[savedLang].label_debt;
+    const labelYou = translations[savedLang].label_you;
+    const labelCreditor = translations[savedLang].label_creditor;
+    const labelIncomingDebt = translations[savedLang].label_incoming_debt;
+    const statusAwaiting = translations[savedLang].status_awaiting;
+    const statusNotReceived = translations[savedLang].status_not_received;
+    const statusReceived = translations[savedLang].status_received;
+    const msgClaimedPayment = translations[savedLang].msg_claimed_payment;
+    const statusPayingYou = translations[savedLang].status_paying_you;
+    const msgConfirmReceive = translations[savedLang].msg_confirm_receive;
+    const btnBack = translations[savedLang].btn_back;
+    const msgWaitConfirm = translations[savedLang].msg_wait_confirm;
+    const btnPaid = translations[savedLang].btn_paid;
+    const msgNotifyHelper = translations[savedLang].msg_notify_helper;
+    const msgConfirmPayback = translations[savedLang].msg_confirm_payback;
+    const statusSent = translations[savedLang].status_sent;
+    const msgConfirmPayDebt = translations[savedLang].msg_confirm_pay_debt;
+
 
     //prepare the datas
     const name = selfDatas[0].name;
@@ -383,7 +400,8 @@ function renderSelfList(selfDatas, useruid) {
     listContainer.innerHTML = '';
 
     // green card section or the last card section starts
-    let lastCardPaidStatus = debtStatus === "yes"?"အကြွေးရှိ":"အကြွေးရှင်း";
+    let lastCardPaidStatus = debtStatus === "yes"?statusHasDebt:statusClearDebt;
+    let lastCardPaidData = debtStatus === "yes"?"status_has_debt":"status_clear_debt";
     let lastCardPaidTextColor = debtStatus === "yes"?"red":"green";
     let lastCardPaidAnimate = debtStatus === "yes"?"animate-pulse":"";
     let lastCardSignForBalance = balance > 0?"+"+balance:balance;
@@ -409,18 +427,18 @@ function renderSelfList(selfDatas, useruid) {
                 if(debtToClickedCheck === "no"){
                     paidBtnCheck += 
                     `
-                        <div class="text-white text-lg font-bold">${creditorName}ကိုအကြွေးပြန်ဆပ်မှာလား</div>
-                        <p class="text-gray-400 text-sm">ဒီခလုတ်ကိုနှိပ်ရင်${creditorName} ကိုပေးပြီးကြောင်းပို့ပါလိမ့်မယ်</p>
-                        <button onclick="event.stopPropagation(); handlePayBack('${useruid}', '${creditorId}')" class="w-full py-3 rounded-xl text-white font-bold bg-gradient-to-r from-red-500 to-pink-600 shadow-lg hover:shadow-red-500/30 transform transition active:scale-95">
-                                        💸 ပေးပြီးပြီ
+                        <div class="text-white text-lg font-bold"><span data-i18n="msg_confirm_payback">${msgConfirmPayback}</span></div>
+                        <p class="text-gray-400 text-sm" data-i18n="msg_notify_helper">${msgNotifyHelper}</p>
+                        <button onclick="event.stopPropagation(); handlePayBack('${useruid}', '${creditorId}', '${msgConfirmPayDebt}')" class="w-full py-3 rounded-xl text-white font-bold bg-gradient-to-r from-red-500 to-pink-600 shadow-lg hover:shadow-red-500/30 transform transition active:scale-95">
+                                        💸 <span data-i18n="btn_paid">${btnPaid}</span>
                         </button>
                     `;
                 }else{
                     paidBtnCheck += 
                     `
-                        <div class="text-white text-lg font-bold">${creditorName} ဆီကလက်ခံတာကိုစောင့်ပါ</div>
-                        <button disabled onclick="event.stopPropagation();" class="w-full py-3 rounded-xl text-white font-bold bg-gray-500 shadow-lg hover:shadow-gray-500/30">
-                            ပို့ထားပြီးပြီ
+                        <div class="text-white text-lg font-bold">${creditorName} <span data-i18n="msg_wait_confirm">${msgWaitConfirm}</span></div>
+                        <button disabled onclick="event.stopPropagation();" data-i18n="status_sent"  class="w-full py-3 rounded-xl text-white font-bold bg-gray-500 shadow-lg hover:shadow-gray-500/30">
+                            ${statusSent}
                         </button>
                     `;
                 }
@@ -435,18 +453,18 @@ function renderSelfList(selfDatas, useruid) {
                                         <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-lg">${creditorAvatar}</div>
                                         <div>
                                             <h3 class="text-lg font-bold text-gray-900 leading-tight">${creditorName}</h3>
-                                            <p class="text-xs text-gray-500">အကြွေးရှင်</p>
+                                            <p class="text-xs text-gray-500" data-i18n="label_creditor">${labelCreditor}</p>
                                         </div>
                                     </div>
-                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 animate-pulse">အကြွေးရှိ</span>
+                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 animate-pulse"  data-i18n="status_has_debt">${statusHasDebt}</span>
                                 </div>
         
                                 <div class="bg-red-50 p-3 rounded-lg text-center border border-red-100 mb-4">
-                                    <p class="text-xs text-red-500 uppercase tracking-wide">အကြွေးပမာဏ</p>
+                                    <p class="text-xs text-red-500 uppercase tracking-wide" data-i18n="label_debt">${labelDebt}</p>
                                     <p class="text-2xl font-bold text-red-600">-${debtToCreditor}円</p>
                                 </div>
         
-                                <div class="text-xs text-gray-400 mt-auto">Click to Pay Back <span class="text-lg">↻</span></div>
+                                <div class="text-xs text-gray-400 mt-auto"><span data-i18n="label_debt">${cardClickPay}</span><span class="text-lg">↻</span></div>
                             </div>
         
                             <div class="flip-card-back bg-gray-900 p-6 shadow-lg border border-gray-800 relative overflow-hidden">
@@ -455,7 +473,7 @@ function renderSelfList(selfDatas, useruid) {
                                     ${/* this paidbtnCheck is checking the btn is already clicked or not */ ''}
                                     ${paidBtnCheck}
                                     
-                                    <button class="text-gray-500 text-xs hover:text-white mt-2">နောက်သို့</button>
+                                    <button class="text-gray-500 text-xs hover:text-white mt-2" data-i18n="btn_back">${btnBack}</button>
                                 </div>
                             </div>
         
@@ -508,14 +526,14 @@ function renderSelfList(selfDatas, useruid) {
                                             <div class="h-12 w-12 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center text-2xl mb-2">?</div>
                                             
                                             <div class="text-gray-800 text-lg font-bold">Did you accept?</div>
-                                            <p class="text-gray-500 text-xs mb-4">${debtorName} ကအကြွေးပေးထားတယ်ပြောတယ်</p>
+                                            <p class="text-gray-500 text-xs mb-4">${debtorName} <span data-i18n="msg_claimed_payment">${msgClaimedPayment}</span></p>
                 
-                                            <button onclick="event.stopPropagation(); handleAccept('${useruid}', '${debtorId}')" class="w-full py-2.5 rounded-lg text-white font-bold bg-green-500 hover:bg-green-600 shadow-md transition active:scale-95">
-                                                လက်ခံရရှိပါတယ် ✅
+                                            <button onclick="event.stopPropagation(); handleAccept('${useruid}', '${debtorId}', '${msgConfirmReceive}')" data-i18n="status_received" class="w-full py-2.5 rounded-lg text-white font-bold bg-green-500 hover:bg-green-600 shadow-md transition active:scale-95">
+                                                ${statusReceived}
                                             </button>
                 
-                                            <button onclick="event.stopPropagation(); handleReject('user_id')" class="w-full py-2.5 rounded-lg text-gray-600 font-bold bg-white border border-gray-300 hover:bg-gray-50 transition active:scale-95">
-                                                လက်ခံမရရှိဘူး
+                                            <button onclick="event.stopPropagation(); handleReject('user_id')" data-i18n="status_not_received" class="w-full py-2.5 rounded-lg text-gray-600 font-bold bg-white border border-gray-300 hover:bg-gray-50 transition active:scale-95">
+                                                ${statusNotReceived}
                                             </button>
                                         </div>
                                     </div>${/* <div class="flip-card-back bg-yellow-50 p-6... ends */ ''}
@@ -534,18 +552,18 @@ function renderSelfList(selfDatas, useruid) {
                                         </div>
                                         <div>
                                             <h3 class="text-lg font-bold text-gray-900 leading-tight">${debtorName}</h3>
-                                            <p class="text-xs text-gray-500">အကြွေးရရန်</p>
+                                            <p class="text-xs text-gray-500" data-i18n="label_incoming_debt">${labelIncomingDebt}</p>
                                         </div>
                                     </div>${/* <div class="flex items-center gap-3"> ends */ ''}
-                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700">
-                                        အကြွေးမရသေး
+                                    <span  data-i18n="status_not_received" class="px-2.5 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700">
+                                        ${statusNotReceived}
                                     </span>
                                 </div>${/* <div class="flex justify-between items-start mb-4 mt-2"> ends */ ''}
 
                                 <div class="bg-gray-50 p-3 rounded-lg text-center mb-4">
                                     <div class="bg-gray-50 p-3 rounded-lg text-center">
-                                        <p class="text-xs text-yellow-500 uppercase tracking-wide">ပမာဏ</p>
-                                        <p class="text-lg font-bold text-yellow-400">${debtorDebt}円</p>
+                                        <p class="text-xs text-yellow-500 uppercase tracking-wide"  data-i18n="label_amount">${labelAmount}</p>
+                                        <p class="text-lg font-bold text-yellow-400"  data-i18n="label_debt">${debtorDebt}円</p>
                                     </div>
                                 </div>
                             </div>${/** <div class="bg-white ${sameToOweHeight} ends */ ''}
@@ -566,17 +584,17 @@ function renderSelfList(selfDatas, useruid) {
                     </div>
                     <div>
                         <h3 class="text-lg font-bold text-gray-900 leading-tight">${name}</h3>
-                        <p class="text-xs text-gray-500">သင်</p>
+                        <p class="text-xs text-gray-500" data-i18n="label_you" >${labelYou}</p>
                     </div>
                 </div>
-                <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-${lastCardPaidTextColor}-100 text-${lastCardPaidTextColor}-700 ${lastCardPaidAnimate}">
+                <span data-i18n="${lastCardPaidData}" class="px-2.5 py-1 rounded-full text-xs font-bold bg-${lastCardPaidTextColor}-100 text-${lastCardPaidTextColor}-700 ${lastCardPaidAnimate}">
                 ${lastCardPaidStatus}
                 </span>
             </div>
 
             <div class="bg-gray-50 p-3 rounded-lg text-center mb-4">
                 <div class="bg-gray-50 p-3 rounded-lg text-center">
-                    <p class="text-xs text-${lastCardTextColor}-500 uppercase tracking-wide">ပမာဏ</p>
+                    <p class="text-xs text-${lastCardTextColor}-500 uppercase tracking-wide" data-i18n="label_amount" >${labelAmount}</p>
                     <p class="text-lg font-bold text-${lastCardTextColor}-400">${lastCardSignForBalance}円</p>
                 </div>
             </div>
@@ -590,14 +608,20 @@ function renderSelfList(selfDatas, useruid) {
 function renderOtherUsersList(otherMembersDatas){
     const otherMembersDatasSpan = document.getElementById('otherMembersDatas');
     otherMembersDatasSpan.innerHTML = '';
-    let color, balanceColor, sign, paidStatus = "";
+    let color, balanceColor, sign, paidStatus, paidStatusData = "";
     let cardHTML = "";
+    const savedLang = localStorage.getItem('preferred_language') || 'my';
+    const statusHasDebt = translations[savedLang].status_has_debt;
+    const statusClearDebt = translations[savedLang].status_clear_debt;
+    const labelAmount = translations[savedLang].label_amount;
+    const labelDebt = translations[savedLang].label_debt;
     //set the datas for self
     otherMembersDatas.forEach(other=>{
         const debtStatus = other.debtStatus;
         color = debtStatus === "yes"?"red":"green";
         sign = debtStatus === "yes"?"-":"+";
-        paidStatus = debtStatus === "yes"?"အကြွေးရှိ":"အကြွေးရှင်း";
+        paidStatus = debtStatus === "yes"?statusHasDebt:statusClearDebt;
+        paidStatusData = debtStatus === "yes"?"status_has_debt":"status_clear_debt";
         const otherBalance = other.balance;
         sign = otherBalance>0?sign:"";
         balanceColor = otherBalance>0?"green":"gray";
@@ -629,18 +653,18 @@ function renderOtherUsersList(otherMembersDatas){
                             <h3 class="text-lg font-bold text-gray-900 leading-tight">${otherName}</h3>
                         </div>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-${color}-100 text-${color}-700">
+                    <span data-i18n="${paidStatusData}" class="px-2.5 py-1 rounded-full text-xs font-bold bg-${color}-100 text-${color}-700">
                     ${paidStatus}
                     </span>
                 </div>${/* <div class="flex justify-between items-start mb-4 mt-2">  ends */ ''}
 
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div class="bg-${balanceColor}-50 p-3 rounded-lg text-center">
-                        <p class="text-xs text-${balanceColor}-500 uppercase tracking-wide">ပမာဏ</p>
+                        <p class="text-xs text-${balanceColor}-500 uppercase tracking-wide" data-i18n="label_amount">${labelAmount}</p>
                         <p class="text-lg font-bold text-${balanceColor}-400">${balanceWithSign}円</p>
                     </div>
                     <div class="bg-${color}-50 p-3 rounded-lg text-center border border-${color}-100 bg-${color}-50">
-                        <p class="text-xs text-${color}-500 uppercase tracking-wide">အကြွေး</p>
+                        <p class="text-xs text-${color}-500 uppercase tracking-wide" data-i18n="label_debt">${labelDebt}</p>
                         <p class="text-lg font-bold text-${color}-600">${otherDebtTotalWithSign}円</p>
                     </div>
                 </div>${/* <div class="grid grid-cols-2 gap-4 mb-6">  ends */ ''}
@@ -663,9 +687,16 @@ function setupTopUpForm(callback, useruid){
             e.preventDefault(); // Stop reload
             const topUpAmountEle = document.getElementById('topUpAmount');
             const topUpAmount = Number(topUpAmountEle.value);
+            const savedLang = localStorage.getItem('preferred_language') || 'my';
+            let confirmText = translations[savedLang].confirm_topup_msg;
+            let msgInvalidAmount = translations[savedLang].msg_invalid_amount;
+            if(topUpAmount <= 0) {
+                showToast(msgInvalidAmount, "fail");
+                usedAmountEle.value = "";
+                return;
+            }
             const datetime = getCurrentDateTime();
-            
-            showConfirm("ကဒ်ထဲငွေဖြည့်မှာသေချာလား။", ()=>{
+            showConfirm(confirmText, ()=>{
                 // Call the callback
                 callback(topUpAmount, datetime, useruid);
             });
