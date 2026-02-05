@@ -122,6 +122,7 @@ onAuthStateChanged(auth, (user)=>{
         getRealTimeDatas("card", getCardBalance);
         //getUserDatas()
         getRealTimeDatas("users", getUserDatas, user.uid);
+        //handle payback the debt ... not yet
     }else{
         handleSignOut();
         getTTButton(disableTTButton);

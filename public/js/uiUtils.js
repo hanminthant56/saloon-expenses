@@ -372,11 +372,11 @@ function renderSelfList(selfDatas, useruid) {
     const labelYou = translations[savedLang].label_you;
     const labelCreditor = translations[savedLang].label_creditor;
     const labelIncomingDebt = translations[savedLang].label_incoming_debt;
-    const statusAwaiting = translations[savedLang].status_awaiting;
+    // const statusAwaiting = translations[savedLang].status_awaiting;
     const statusNotReceived = translations[savedLang].status_not_received;
     const statusReceived = translations[savedLang].status_received;
     const msgClaimedPayment = translations[savedLang].msg_claimed_payment;
-    const statusPayingYou = translations[savedLang].status_paying_you;
+    // const statusPayingYou = translations[savedLang].status_paying_you;
     const msgConfirmReceive = translations[savedLang].msg_confirm_receive;
     const btnBack = translations[savedLang].btn_back;
     const msgWaitConfirm = translations[savedLang].msg_wait_confirm;
@@ -390,9 +390,7 @@ function renderSelfList(selfDatas, useruid) {
     //prepare the datas
     const name = selfDatas[0].name;
     const balance = selfDatas[0].balance;
-    const debtStatus = selfDatas[0].debtStatus;
     const debtTo = selfDatas[0].debtTo;
-    const oweStatus = selfDatas[0].oweStatus;
     const oweMe = selfDatas[0].oweMe;
     const currentUserAvatar = selfDatas[0].userAvatar;
     
@@ -400,20 +398,24 @@ function renderSelfList(selfDatas, useruid) {
     listContainer.innerHTML = '';
 
     // green card section or the last card section starts
-    let lastCardPaidStatus = debtStatus === "yes"?statusHasDebt:statusClearDebt;
-    let lastCardPaidData = debtStatus === "yes"?"status_has_debt":"status_clear_debt";
-    let lastCardPaidTextColor = debtStatus === "yes"?"red":"green";
-    let lastCardPaidAnimate = debtStatus === "yes"?"animate-pulse":"";
+    let lastCardPaidStatus = statusClearDebt;
+    let lastCardPaidData = "status_clear_debt";
+    let lastCardPaidTextColor = "green";
+    let lastCardPaidAnimate = "";
     let lastCardSignForBalance = balance > 0?"+"+balance:balance;
     let lastCardTextColor = balance === 0?"gray":"green";
     // green card section or the last card section ends
 
     // set the card height while oweStatus is 'yes'
-    const sameToOweHeight = oweStatus === "yes"?"h-[304px]":"h-[266px]";
+    let sameToOweHeight = "h-[266px]";
     // let color = "";
     let cardHTML = "";
     
-    if(debtStatus === "yes") {
+    if(debtTo && Object.keys(debtTo).length != 0) {
+        lastCardPaidStatus = statusHasDebt;
+        lastCardPaidData = "status_has_debt";
+        lastCardPaidTextColor = "red";
+        lastCardPaidAnimate = "animate-pulse";
         const debtToArr = Object.entries(debtTo);
         if(debtToArr.length > 0) {
 
@@ -483,8 +485,10 @@ function renderSelfList(selfDatas, useruid) {
             });//debtToArr.forEach((creditor) ends
         }//if(debtToArr.length > 0) { ends
     }//if(debtStatus === "yes") ends
-
-    if(oweStatus === "yes") {
+    console.log("oweMe array - ", oweMe)
+    console.log("oweMe array - ", Object.keys(oweMe).length)
+    if(oweMe && Object.keys(oweMe).length != 0) {
+        sameToOweHeight = "h-[304px]";
         const oweMeArr = Object.entries(oweMe);
         if(oweMeArr.length > 0) {
             oweMeArr.forEach((debtor)=>{
