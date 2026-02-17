@@ -1,0 +1,24 @@
+{
+  "name": "saloon-expenses-app",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "start": "webpack --watch --mode=development"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "dependencies": {
+    "firebase": "^10.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-loader": "^9.0.0",
+    "html-webpack-plugin": "^5.6.5",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0"
+  }
+}

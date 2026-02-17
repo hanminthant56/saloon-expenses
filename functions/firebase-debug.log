@@ -1,0 +1,356 @@
+[debug] [2025-12-19T01:44:29.280Z] ----------------------------------------------------------------------
+[debug] [2025-12-19T01:44:29.284Z] Command:       /opt/homebrew/Cellar/node/24.10.0/bin/node /opt/homebrew/bin/firebase deploy --only functions
+[debug] [2025-12-19T01:44:29.284Z] CLI Version:   15.1.0
+[debug] [2025-12-19T01:44:29.284Z] Platform:      darwin
+[debug] [2025-12-19T01:44:29.284Z] Node Version:  v24.10.0
+[debug] [2025-12-19T01:44:29.284Z] Time:          Fri Dec 19 2025 10:44:29 GMT+0900 (Japan Standard Time)
+[debug] [2025-12-19T01:44:29.284Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-12-19T01:44:29.940Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-19T01:44:29.940Z] > authorizing via signed-in user (hopepain512@gmail.com)
+[debug] [2025-12-19T01:44:29.940Z] [iam] checking project saloon-expenses-93775 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-12-19T01:44:29.940Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:29.940Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:29.941Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions [none]
+[debug] [2025-12-19T01:44:29.941Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:44:29.941Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-12-19T01:44:31.095Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions 200
+[debug] [2025-12-19T01:44:31.096Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-12-19T01:44:31.096Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:31.096Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:31.096Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/saloon-expenses-93775/serviceAccounts/saloon-expenses-93775@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-12-19T01:44:31.096Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/saloon-expenses-93775/serviceAccounts/saloon-expenses-93775@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-12-19T01:44:32.313Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/saloon-expenses-93775/serviceAccounts/saloon-expenses-93775@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-12-19T01:44:32.313Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/saloon-expenses-93775/serviceAccounts/saloon-expenses-93775@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'saloon-expenses-93775'...
+[info] 
+[info] i  deploying functions 
+[debug] [2025-12-19T01:44:32.318Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:32.318Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:32.318Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775 [none]
+[debug] [2025-12-19T01:44:32.558Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775 200
+[debug] [2025-12-19T01:44:32.558Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775 {"projectNumber":"170109564429","projectId":"saloon-expenses-93775","lifecycleState":"ACTIVE","name":"hair-saloon-project","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-24T07:22:23.667416Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2025-12-19T01:44:32.561Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:32.561Z] Checked if tokens are valid: true, expires at: 1766110473086
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-12-19T01:44:32.562Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:32.562Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:32.562Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com [none]
+[debug] [2025-12-19T01:44:32.562Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:44:32.564Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com [none]
+[debug] [2025-12-19T01:44:32.564Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:44:33.769Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com 200
+[debug] [2025-12-19T01:44:33.769Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[debug] [2025-12-19T01:44:33.771Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:33.771Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:33.771Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com:enable [none]
+[debug] [2025-12-19T01:44:33.771Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com:enable x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:44:33.780Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com 200
+[debug] [2025-12-19T01:44:33.780Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com [omitted]
+[warn] ⚠  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[debug] [2025-12-19T01:44:33.781Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:33.781Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:33.781Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com:enable [none]
+[debug] [2025-12-19T01:44:33.781Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com:enable x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:44:34.871Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com:enable 200
+[debug] [2025-12-19T01:44:34.871Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/artifactregistry.googleapis.com:enable [omitted]
+[debug] [2025-12-19T01:44:34.929Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com:enable 200
+[debug] [2025-12-19T01:44:34.930Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/cloudbuild.googleapis.com:enable [omitted]
+[debug] [2025-12-19T01:44:44.940Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:44.941Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:44.941Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/saloon-expenses-93775/adminSdkConfig [none]
+[debug] [2025-12-19T01:44:45.526Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/saloon-expenses-93775/adminSdkConfig 200
+[debug] [2025-12-19T01:44:45.526Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/saloon-expenses-93775/adminSdkConfig {"projectId":"saloon-expenses-93775","storageBucket":"saloon-expenses-93775.firebasestorage.app"}
+[debug] [2025-12-19T01:44:45.530Z] Validating nodejs source
+[debug] [2025-12-19T01:44:46.152Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "24"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^7.0.0",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.4.1"
+  },
+  "private": true
+}
+[debug] [2025-12-19T01:44:46.152Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2025-12-19T01:44:46.152Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-12-19T01:44:46.157Z] Found firebase-functions binary at '/Users/hanminthant/project/saloon-expenses-app/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8907
+
+[debug] [2025-12-19T01:44:46.708Z] Got response from /__/functions.yaml {"endpoints":{"sendTopUpNotification":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"transactions/{docId}"},"retry":false},"entryPoint":"sendTopUpNotification"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2025-12-19T01:44:50.730Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:50.730Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:50.730Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com [none]
+[debug] [2025-12-19T01:44:50.730Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:44:51.873Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com 200
+[debug] [2025-12-19T01:44:51.873Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com [omitted]
+[warn] ⚠  extensions: missing required API firebaseextensions.googleapis.com. Enabling now... 
+[debug] [2025-12-19T01:44:51.874Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:51.874Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:44:51.874Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com:enable [none]
+[debug] [2025-12-19T01:44:51.874Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com:enable x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:44:52.975Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com:enable 200
+[debug] [2025-12-19T01:44:52.975Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/saloon-expenses-93775/services/firebaseextensions.googleapis.com:enable [omitted]
+[debug] [2025-12-19T01:45:02.993Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-19T01:45:02.994Z] > authorizing via signed-in user (hopepain512@gmail.com)
+[debug] [2025-12-19T01:45:02.994Z] [iam] checking project saloon-expenses-93775 for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2025-12-19T01:45:02.994Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:02.994Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:02.994Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions [none]
+[debug] [2025-12-19T01:45:02.994Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions x-goog-quota-user=projects/saloon-expenses-93775
+[debug] [2025-12-19T01:45:02.994Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-12-19T01:45:03.854Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions 200
+[debug] [2025-12-19T01:45:03.854Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-12-19T01:45:03.855Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:03.855Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:03.855Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/saloon-expenses-93775/instances pageSize=100&pageToken=
+[debug] [2025-12-19T01:45:05.955Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/saloon-expenses-93775/instances 200
+[debug] [2025-12-19T01:45:05.955Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/saloon-expenses-93775/instances {}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged /Users/hanminthant/project/saloon-expenses-app/functions (67.98 KB) for uploading 
+[debug] [2025-12-19T01:45:05.984Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:05.984Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:05.984Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/saloon-expenses-93775/locations/-/functions [none]
+[debug] [2025-12-19T01:45:06.845Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/saloon-expenses-93775/locations/-/functions 200
+[debug] [2025-12-19T01:45:06.846Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/saloon-expenses-93775/locations/-/functions {}
+[debug] [2025-12-19T01:45:06.846Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:06.846Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:06.847Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2025-12-19T01:45:08.244Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/-/functions 200
+[debug] [2025-12-19T01:45:08.245Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/-/functions {}
+[debug] [2025-12-19T01:45:08.247Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:08.247Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:08.247Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/saloon-expenses-93775/databases/(default) [none]
+[debug] [2025-12-19T01:45:08.599Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/saloon-expenses-93775/databases/(default) 200
+[debug] [2025-12-19T01:45:08.599Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/saloon-expenses-93775/databases/(default) {"name":"projects/saloon-expenses-93775/databases/(default)","uid":"fb0db38e-6405-4eac-889f-bfc597d728ac","createTime":"2025-10-26T13:03:05.570457Z","updateTime":"2025-10-26T13:03:05.570457Z","locationId":"asia-northeast1","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2025-12-19T00:45:08.726448Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"b","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IIXJ39HDyJEDMNjkyMb2wZAD"}
+[info] i  functions: ensuring required API run.googleapis.com is enabled... 
+[debug] [2025-12-19T01:45:08.603Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:08.603Z] Checked if tokens are valid: true, expires at: 1766110473086
+[info] i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+[debug] [2025-12-19T01:45:08.603Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:08.603Z] Checked if tokens are valid: true, expires at: 1766110473086
+[info] i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+[debug] [2025-12-19T01:45:08.604Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:08.604Z] Checked if tokens are valid: true, expires at: 1766110473086
+[info] i  functions: ensuring required API storage.googleapis.com is enabled... 
+[debug] [2025-12-19T01:45:08.604Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:08.604Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:08.605Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com [none]
+[debug] [2025-12-19T01:45:08.605Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:08.606Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com [none]
+[debug] [2025-12-19T01:45:08.606Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:08.607Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/pubsub.googleapis.com [none]
+[debug] [2025-12-19T01:45:08.607Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/pubsub.googleapis.com x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:08.607Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/storage.googleapis.com [none]
+[debug] [2025-12-19T01:45:08.607Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/storage.googleapis.com x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:09.743Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com 200
+[debug] [2025-12-19T01:45:09.743Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API eventarc.googleapis.com. Enabling now... 
+[debug] [2025-12-19T01:45:09.744Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:09.744Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:09.744Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com:enable [none]
+[debug] [2025-12-19T01:45:09.744Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com:enable x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:09.762Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/pubsub.googleapis.com 200
+[debug] [2025-12-19T01:45:09.763Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/pubsub.googleapis.com [omitted]
+[info] ✔  functions: required API pubsub.googleapis.com is enabled 
+[debug] [2025-12-19T01:45:09.796Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/storage.googleapis.com 200
+[debug] [2025-12-19T01:45:09.797Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/storage.googleapis.com [omitted]
+[info] ✔  functions: required API storage.googleapis.com is enabled 
+[debug] [2025-12-19T01:45:09.812Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com 200
+[debug] [2025-12-19T01:45:09.812Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API run.googleapis.com. Enabling now... 
+[debug] [2025-12-19T01:45:09.812Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:09.812Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:09.812Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com:enable [none]
+[debug] [2025-12-19T01:45:09.812Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com:enable x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:10.930Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com:enable 200
+[debug] [2025-12-19T01:45:10.931Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/run.googleapis.com:enable [omitted]
+[debug] [2025-12-19T01:45:12.701Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com:enable 200
+[debug] [2025-12-19T01:45:12.701Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/170109564429/services/eventarc.googleapis.com:enable [omitted]
+[info] i  functions: generating the service identity for pubsub.googleapis.com... 
+[debug] [2025-12-19T01:45:22.712Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:22.712Z] Checked if tokens are valid: true, expires at: 1766110473086
+[info] i  functions: generating the service identity for eventarc.googleapis.com... 
+[debug] [2025-12-19T01:45:22.712Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:22.712Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:22.712Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-12-19T01:45:22.713Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/pubsub.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:22.713Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/pubsub.googleapis.com:generateServiceIdentity {}
+[debug] [2025-12-19T01:45:22.715Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-12-19T01:45:22.715Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/eventarc.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/170109564429
+[debug] [2025-12-19T01:45:22.715Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/eventarc.googleapis.com:generateServiceIdentity {}
+[debug] [2025-12-19T01:45:24.135Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/pubsub.googleapis.com:generateServiceIdentity 200
+[debug] [2025-12-19T01:45:24.135Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-170109564429@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"110722059369025165023"}}
+[debug] [2025-12-19T01:45:24.138Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/eventarc.googleapis.com:generateServiceIdentity 200
+[debug] [2025-12-19T01:45:24.138Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/170109564429/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-170109564429@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"107965506773925834037"}}
+[debug] [2025-12-19T01:45:24.142Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:24.142Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:24.142Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/170109564429 [none]
+[debug] [2025-12-19T01:45:24.847Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/170109564429 403
+[debug] [2025-12-19T01:45:24.847Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/170109564429 {"error":{"code":403,"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","errors":[{"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","domain":"usageLimits","reason":"accessNotConfigured","extendedHelp":"https://console.developers.google.com"}],"status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"SERVICE_DISABLED","domain":"googleapis.com","metadata":{"serviceTitle":"Compute Engine API","service":"compute.googleapis.com","activationUrl":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429","consumer":"projects/170109564429","containerInfo":"170109564429"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developers console API activation","url":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429"}]}]}}
+[debug] [2025-12-19T01:45:24.848Z] unable to look up default compute service account. Falling back to 170109564429-compute@developer.gserviceaccount.com. Error: {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":403,"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","errors":[{"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","domain":"usageLimits","reason":"accessNotConfigured","extendedHelp":"https://console.developers.google.com"}],"status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"SERVICE_DISABLED","domain":"googleapis.com","metadata":{"serviceTitle":"Compute Engine API","service":"compute.googleapis.com","activationUrl":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429","consumer":"projects/170109564429","containerInfo":"170109564429"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developers console API activation","url":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429"}]}]}},"response":{"statusCode":403}},"exit":1,"message":"Request to https://compute.googleapis.com/compute/v1/projects/170109564429 had HTTP Error: 403, Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","status":403}
+[debug] [2025-12-19T01:45:24.849Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:24.849Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:24.849Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/170109564429:getIamPolicy [none]
+[debug] [2025-12-19T01:45:25.768Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/170109564429:getIamPolicy 200
+[debug] [2025-12-19T01:45:25.769Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/170109564429:getIamPolicy {"version":1,"etag":"BwZGRDp6Ri4=","bindings":[{"role":"roles/cloudbuild.builds.builder","members":["serviceAccount:170109564429@cloudbuild.gserviceaccount.com"]},{"role":"roles/cloudbuild.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-cloudbuild.iam.gserviceaccount.com"]},{"role":"roles/cloudfunctions.serviceAgent","members":["serviceAccount:service-170109564429@gcf-admin-robot.iam.gserviceaccount.com"]},{"role":"roles/containerregistry.ServiceAgent","members":["serviceAccount:service-170109564429@containerregistry.iam.gserviceaccount.com"]},{"role":"roles/editor","members":["serviceAccount:170109564429@cloudservices.gserviceaccount.com","serviceAccount:saloon-expenses-93775@appspot.gserviceaccount.com","serviceAccount:170109564429-compute@developer.gserviceaccount.com"]},{"role":"roles/firebase.managementServiceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firebase.iam.gserviceaccount.com"]},{"role":"roles/firebase.sdkAdminServiceAgent","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com"]},{"role":"roles/firebaseauth.admin","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com"]},{"role":"roles/firebasemods.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firebasemods.iam.gserviceaccount.com"]},{"role":"roles/firebaserules.system","members":["serviceAccount:service-170109564429@firebase-rules.iam.gserviceaccount.com"]},{"role":"roles/firestore.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firestore.iam.gserviceaccount.com"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com"]},{"role":"roles/owner","members":["user:hopepain512@gmail.com"]},{"role":"roles/run.serviceAgent","members":["serviceAccount:service-170109564429@serverless-robot-prod.iam.gserviceaccount.com"]}]}
+[debug] [2025-12-19T01:45:25.769Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:25.769Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:25.769Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/170109564429:setIamPolicy [none]
+[debug] [2025-12-19T01:45:25.770Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/170109564429:setIamPolicy {"policy":{"version":1,"etag":"BwZGRDp6Ri4=","bindings":[{"role":"roles/cloudbuild.builds.builder","members":["serviceAccount:170109564429@cloudbuild.gserviceaccount.com"]},{"role":"roles/cloudbuild.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-cloudbuild.iam.gserviceaccount.com"]},{"role":"roles/cloudfunctions.serviceAgent","members":["serviceAccount:service-170109564429@gcf-admin-robot.iam.gserviceaccount.com"]},{"role":"roles/containerregistry.ServiceAgent","members":["serviceAccount:service-170109564429@containerregistry.iam.gserviceaccount.com"]},{"role":"roles/editor","members":["serviceAccount:170109564429@cloudservices.gserviceaccount.com","serviceAccount:saloon-expenses-93775@appspot.gserviceaccount.com","serviceAccount:170109564429-compute@developer.gserviceaccount.com"]},{"role":"roles/firebase.managementServiceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firebase.iam.gserviceaccount.com"]},{"role":"roles/firebase.sdkAdminServiceAgent","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com"]},{"role":"roles/firebaseauth.admin","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com"]},{"role":"roles/firebasemods.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firebasemods.iam.gserviceaccount.com"]},{"role":"roles/firebaserules.system","members":["serviceAccount:service-170109564429@firebase-rules.iam.gserviceaccount.com"]},{"role":"roles/firestore.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firestore.iam.gserviceaccount.com"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com","serviceAccount:service-170109564429@gcp-sa-pubsub.iam.gserviceaccount.com"]},{"role":"roles/owner","members":["user:hopepain512@gmail.com"]},{"role":"roles/run.serviceAgent","members":["serviceAccount:service-170109564429@serverless-robot-prod.iam.gserviceaccount.com"]},{"role":"roles/run.invoker","members":["serviceAccount:170109564429-compute@developer.gserviceaccount.com"]},{"role":"roles/eventarc.eventReceiver","members":["serviceAccount:170109564429-compute@developer.gserviceaccount.com"]}]},"updateMask":"bindings"}
+[debug] [2025-12-19T01:45:26.566Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/170109564429:setIamPolicy 200
+[debug] [2025-12-19T01:45:26.566Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/170109564429:setIamPolicy {"version":1,"etag":"BwZGRDtIzCQ=","bindings":[{"role":"roles/cloudbuild.builds.builder","members":["serviceAccount:170109564429@cloudbuild.gserviceaccount.com"]},{"role":"roles/cloudbuild.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-cloudbuild.iam.gserviceaccount.com"]},{"role":"roles/cloudfunctions.serviceAgent","members":["serviceAccount:service-170109564429@gcf-admin-robot.iam.gserviceaccount.com"]},{"role":"roles/containerregistry.ServiceAgent","members":["serviceAccount:service-170109564429@containerregistry.iam.gserviceaccount.com"]},{"role":"roles/editor","members":["serviceAccount:170109564429-compute@developer.gserviceaccount.com","serviceAccount:170109564429@cloudservices.gserviceaccount.com","serviceAccount:saloon-expenses-93775@appspot.gserviceaccount.com"]},{"role":"roles/eventarc.eventReceiver","members":["serviceAccount:170109564429-compute@developer.gserviceaccount.com"]},{"role":"roles/firebase.managementServiceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firebase.iam.gserviceaccount.com"]},{"role":"roles/firebase.sdkAdminServiceAgent","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com"]},{"role":"roles/firebaseauth.admin","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com"]},{"role":"roles/firebasemods.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firebasemods.iam.gserviceaccount.com"]},{"role":"roles/firebaserules.system","members":["serviceAccount:service-170109564429@firebase-rules.iam.gserviceaccount.com"]},{"role":"roles/firestore.serviceAgent","members":["serviceAccount:service-170109564429@gcp-sa-firestore.iam.gserviceaccount.com"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["serviceAccount:firebase-adminsdk-fbsvc@saloon-expenses-93775.iam.gserviceaccount.com","serviceAccount:service-170109564429@gcp-sa-pubsub.iam.gserviceaccount.com"]},{"role":"roles/owner","members":["user:hopepain512@gmail.com"]},{"role":"roles/run.invoker","members":["serviceAccount:170109564429-compute@developer.gserviceaccount.com"]},{"role":"roles/run.serviceAgent","members":["serviceAccount:service-170109564429@serverless-robot-prod.iam.gserviceaccount.com"]}]}
+[debug] [2025-12-19T01:45:26.568Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:26.568Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:26.568Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775 [none]
+[debug] [2025-12-19T01:45:26.794Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775 200
+[debug] [2025-12-19T01:45:26.794Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/saloon-expenses-93775 {"projectNumber":"170109564429","projectId":"saloon-expenses-93775","lifecycleState":"ACTIVE","name":"hair-saloon-project","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-24T07:22:23.667416Z"}
+[debug] [2025-12-19T01:45:26.794Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:26.794Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:26.795Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/170109564429 [none]
+[debug] [2025-12-19T01:45:27.117Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/170109564429 403
+[debug] [2025-12-19T01:45:27.117Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/170109564429 {"error":{"code":403,"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","errors":[{"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","domain":"usageLimits","reason":"accessNotConfigured","extendedHelp":"https://console.developers.google.com"}],"status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"SERVICE_DISABLED","domain":"googleapis.com","metadata":{"service":"compute.googleapis.com","activationUrl":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429","containerInfo":"170109564429","serviceTitle":"Compute Engine API","consumer":"projects/170109564429"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developers console API activation","url":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429"}]}]}}
+[debug] [2025-12-19T01:45:27.117Z] unable to look up default compute service account. Falling back to 170109564429-compute@developer.gserviceaccount.com. Error: {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":403,"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","errors":[{"message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","domain":"usageLimits","reason":"accessNotConfigured","extendedHelp":"https://console.developers.google.com"}],"status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"SERVICE_DISABLED","domain":"googleapis.com","metadata":{"service":"compute.googleapis.com","activationUrl":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429","containerInfo":"170109564429","serviceTitle":"Compute Engine API","consumer":"projects/170109564429"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developers console API activation","url":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429"}]}]}},"response":{"statusCode":403}},"exit":1,"message":"Request to https://compute.googleapis.com/compute/v1/projects/170109564429 had HTTP Error: 403, Compute Engine API has not been used in project 170109564429 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=170109564429 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","status":403}
+[debug] [2025-12-19T01:45:27.119Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:27.119Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:27.119Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/saloon-expenses-93775/billingInfo [none]
+[debug] [2025-12-19T01:45:27.623Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/saloon-expenses-93775/billingInfo 200
+[debug] [2025-12-19T01:45:27.623Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/saloon-expenses-93775/billingInfo {"name":"projects/saloon-expenses-93775/billingInfo","projectId":"saloon-expenses-93775","billingAccountName":"billingAccounts/019442-67E187-988242","billingEnabled":true}
+[debug] [2025-12-19T01:45:27.625Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:27.625Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:27.625Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2025-12-19T01:45:29.910Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2025-12-19T01:45:29.910Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-170109564429.us-central1.cloudfunctions.appspot.com/79b0aec3-7a55-45c3-bdfe-037bef4e19a3.zip?GoogleAccessId=service-170109564429@gcf-admin-robot.iam.gserviceaccount.com&Expires=1766110529&Signature=1IOKl9YnsX04%2FCPF%2F4Tq2O%2Fr%2F%2BmYHpGduR%2Bc6348GuW43YlCFyEorU%2BHk%2FXRsWbEaDMSJkBWnkrMlAhMTO%2FeL8odXaOtm4ExGFZHA%2FmI1QTEU3Ytv3agcdeqXi3d%2Bl1v9vnqAfFDnypfXkmlBq2pIZs7b02vHQoNmE1g%2FA4swC%2F2UyP0DNudVlQ3QckvsxNDbXy2bfgBFCRwfUTow0PBceLvtEtcIfvMnGKGk1cbWhRhgU50aXU6BMKpAVWOxV%2BW%2B%2BVhEW0ewAhfBKuvukIO6zR5q0935fVb95GLJYIMGDFrPlpZN9xRPtAwJ%2FuyVflRFsohCDLxOUKuBrvhqNRfSg%3D%3D","storageSource":{"bucket":"gcf-v2-uploads-170109564429.us-central1.cloudfunctions.appspot.com","object":"79b0aec3-7a55-45c3-bdfe-037bef4e19a3.zip"}}
+[debug] [2025-12-19T01:45:29.911Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-170109564429.us-central1.cloudfunctions.appspot.com/79b0aec3-7a55-45c3-bdfe-037bef4e19a3.zip GoogleAccessId=service-170109564429%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1766110529&Signature=1IOKl9YnsX04%2FCPF%2F4Tq2O%2Fr%2F%2BmYHpGduR%2Bc6348GuW43YlCFyEorU%2BHk%2FXRsWbEaDMSJkBWnkrMlAhMTO%2FeL8odXaOtm4ExGFZHA%2FmI1QTEU3Ytv3agcdeqXi3d%2Bl1v9vnqAfFDnypfXkmlBq2pIZs7b02vHQoNmE1g%2FA4swC%2F2UyP0DNudVlQ3QckvsxNDbXy2bfgBFCRwfUTow0PBceLvtEtcIfvMnGKGk1cbWhRhgU50aXU6BMKpAVWOxV%2BW%2B%2BVhEW0ewAhfBKuvukIO6zR5q0935fVb95GLJYIMGDFrPlpZN9xRPtAwJ%2FuyVflRFsohCDLxOUKuBrvhqNRfSg%3D%3D
+[debug] [2025-12-19T01:45:29.911Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-170109564429.us-central1.cloudfunctions.appspot.com/79b0aec3-7a55-45c3-bdfe-037bef4e19a3.zip [stream]
+[debug] [2025-12-19T01:45:30.701Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-170109564429.us-central1.cloudfunctions.appspot.com/79b0aec3-7a55-45c3-bdfe-037bef4e19a3.zip 200
+[debug] [2025-12-19T01:45:30.701Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-170109564429.us-central1.cloudfunctions.appspot.com/79b0aec3-7a55-45c3-bdfe-037bef4e19a3.zip [omitted]
+[info] ✔  functions: functions source uploaded successfully 
+[info] i  functions: creating Node.js 24 (2nd Gen) function sendTopUpNotification(us-central1)... 
+[debug] [2025-12-19T01:45:30.710Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:30.710Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:30.710Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions functionId=sendTopUpNotification
+[debug] [2025-12-19T01:45:30.710Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions {"name":"projects/saloon-expenses-93775/locations/us-central1/functions/sendTopUpNotification","buildConfig":{"runtime":"nodejs24","entryPoint":"sendTopUpNotification","source":{"storageSource":{"bucket":"gcf-v2-uploads-170109564429.us-central1.cloudfunctions.appspot.com","object":"79b0aec3-7a55-45c3-bdfe-037bef4e19a3.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"saloon-expenses-93775\",\"storageBucket\":\"saloon-expenses-93775.firebasestorage.app\"}","GCLOUD_PROJECT":"saloon-expenses-93775","EVENTARC_CLOUD_EVENT_SOURCE":"projects/saloon-expenses-93775/locations/us-central1/services/sendTopUpNotification","FUNCTION_SIGNATURE_TYPE":"cloudevent","FUNCTION_TARGET":"sendTopUpNotification","LOG_EXECUTION_ID":"true"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"1b62e1f291bfee4b172be53a516b20d908ba3d8f"},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","retryPolicy":"RETRY_POLICY_DO_NOT_RETRY","eventFilters":[{"attribute":"database","value":"(default)"},{"attribute":"namespace","value":"(default)"},{"attribute":"document","value":"transactions/{docId}","operator":"match-path-pattern"}],"triggerRegion":"asia-northeast1"}}
+[debug] [2025-12-19T01:45:48.245Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions 400
+[debug] [2025-12-19T01:45:48.246Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions {"error":{"code":400,"message":"Validation failed for trigger projects/saloon-expenses-93775/locations/asia-northeast1/triggers/sendtopupnotification-723733: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.","status":"FAILED_PRECONDITION"}}
+[warn] ⚠  functions: Request to https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions?functionId=sendTopUpNotification had HTTP Error: 400, Validation failed for trigger projects/saloon-expenses-93775/locations/asia-northeast1/triggers/sendtopupnotification-723733: Invalid resource state for "": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role. 
+[warn] ⚠  functions: Since this is your first time using 2nd gen functions, we need a little bit longer to finish setting everything up. Retry the deployment in a few minutes. 
+[warn] ⚠  functions:  failed to create function projects/saloon-expenses-93775/locations/us-central1/functions/sendTopUpNotification 
+[error] Failed to create function projects/saloon-expenses-93775/locations/us-central1/functions/sendTopUpNotification
+[debug] [2025-12-19T01:45:48.255Z] Total Function Deployment time: 17541
+[debug] [2025-12-19T01:45:48.255Z] 1 Functions Deployed
+[debug] [2025-12-19T01:45:48.255Z] 1 Functions Errored
+[debug] [2025-12-19T01:45:48.255Z] 0 Function Deployments Aborted
+[debug] [2025-12-19T01:45:48.255Z] Average Function Deployment time: 17540
+[info] 
+[info] Functions deploy had errors with the following functions:
+	sendTopUpNotification(us-central1)
+[debug] [2025-12-19T01:45:48.495Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:48.495Z] Checked if tokens are valid: true, expires at: 1766110473086
+[debug] [2025-12-19T01:45:48.495Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1/projects/saloon-expenses-93775/locations/us-central1/repositories/gcf-artifacts [none]
+[debug] [2025-12-19T01:45:49.807Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1/projects/saloon-expenses-93775/locations/us-central1/repositories/gcf-artifacts 404
+[debug] [2025-12-19T01:45:49.807Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1/projects/saloon-expenses-93775/locations/us-central1/repositories/gcf-artifacts {"error":{"code":404,"message":"Requested entity was not found.","status":"NOT_FOUND"}}
+[debug] [2025-12-19T01:45:49.808Z] Failed to check artifact cleanup policy for region us-central1: Request to https://artifactregistry.googleapis.com/v1/projects/saloon-expenses-93775/locations/us-central1/repositories/gcf-artifacts had HTTP Error: 404, Requested entity was not found. {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":404,"message":"Requested entity was not found.","status":"NOT_FOUND"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://artifactregistry.googleapis.com/v1/projects/saloon-expenses-93775/locations/us-central1/repositories/gcf-artifacts had HTTP Error: 404, Requested entity was not found.","status":404}
+[debug] [2025-12-19T01:45:49.808Z] Functions deploy failed.
+[debug] [2025-12-19T01:45:49.808Z] {
+  "endpoint": {
+    "id": "sendTopUpNotification",
+    "project": "saloon-expenses-93775",
+    "region": "us-central1",
+    "entryPoint": "sendTopUpNotification",
+    "platform": "gcfv2",
+    "runtime": "nodejs24",
+    "eventTrigger": {
+      "eventType": "google.cloud.firestore.document.v1.created",
+      "retry": false,
+      "eventFilters": {
+        "database": "(default)",
+        "namespace": "(default)"
+      },
+      "eventFilterPathPatterns": {
+        "document": "transactions/{docId}"
+      },
+      "region": "asia-northeast1"
+    },
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "serviceAccount": null,
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "concurrency": 80,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"saloon-expenses-93775\",\"storageBucket\":\"saloon-expenses-93775.firebasestorage.app\"}",
+      "GCLOUD_PROJECT": "saloon-expenses-93775",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/saloon-expenses-93775/locations/us-central1/services/sendTopUpNotification"
+    },
+    "codebase": "default",
+    "cpu": 1,
+    "targetedByOnly": false,
+    "hash": "1b62e1f291bfee4b172be53a516b20d908ba3d8f"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "context": {
+      "function": "projects/saloon-expenses-93775/locations/us-central1/functions/sendTopUpNotification"
+    },
+    "exit": 1,
+    "message": "Failed to create function projects/saloon-expenses-93775/locations/us-central1/functions/sendTopUpNotification",
+    "original": {
+      "name": "FirebaseError",
+      "children": [],
+      "context": {
+        "body": {
+          "error": {
+            "code": 400,
+            "message": "Validation failed for trigger projects/saloon-expenses-93775/locations/asia-northeast1/triggers/sendtopupnotification-723733: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.",
+            "status": "FAILED_PRECONDITION"
+          }
+        },
+        "response": {
+          "statusCode": 400
+        }
+      },
+      "exit": 1,
+      "message": "Request to https://cloudfunctions.googleapis.com/v2/projects/saloon-expenses-93775/locations/us-central1/functions?functionId=sendTopUpNotification had HTTP Error: 400, Validation failed for trigger projects/saloon-expenses-93775/locations/asia-northeast1/triggers/sendtopupnotification-723733: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.",
+      "status": 400
+    },
+    "status": 400,
+    "code": 400
+  }
+}
+[debug] [2025-12-19T01:45:49.907Z] Error: Failed to create function sendTopUpNotification in region us-central1
+    at /opt/homebrew/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:306:27
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Fabricator.createV2Function (/opt/homebrew/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:290:30)
+    at async Fabricator.createEndpoint (/opt/homebrew/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:137:13)
+    at async handle (/opt/homebrew/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:89:17)
+[error] 
+[error] Error: There was an error deploying functions

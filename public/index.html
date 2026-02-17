@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to HMT's Saloon Expenses">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Expense Tracker</title>
+    <!-- <script defer src="/__/firebase/init.js?useEmulator=true"></script> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- <script type="module" src="./js/firebase.js"></script> -->
+    <link rel="stylesheet" href="./app.css">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="./Scissors.png">
+    <link rel="manifest" href="./manifest.json">
+
+</head>
+<body class="bg-gray-50 p-4 sm:p-8">
+    <div class="flex justify-between items-center mb-6">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-800" data-i18n="app_title">Expense Tracker</h1>
+        <p class="text-sm text-gray-500" data-i18n="app_subtitle">Manage your group expenses</p>
+    </div>
+    <button id="btn-subscribe" class="bg-yellow-500 text-white p-2 rounded-lg text-sm mt-2" data-i18n="btn_notifications">
+    🔔 Turn on Notifications
+    </button>
+        <!-- login section and lang section -->
+    <div class="flex items-center gap-3">
+            <div class="relative">
+                <select id="lang-selector" onchange="changeLanguage(this.value)" class="appearance-none bg-white border border-gray-200 text-gray-700 py-2 pl-3 pr-8 rounded-lg text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <option value="my">🇲🇲 MM</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="ja">🇯🇵 JA</option>
+                    <option value="zh">🇨🇳 CN</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+            </div>
+            <div id="loginSection">
+                <button id="loginButton" onclick="openModal('mainFormModal')" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 shadow-md transition-all active:scale-95 text-sm font-medium" data-i18n="login_btn">
+                    Login
+                </button>
+            </div>
+            
+            <div id="userSection" class="hidden flex items-center gap-3 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-gray-100">
+                <div id="userAvatar" class="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs">
+                    U
+                </div>
+                <span id="userName" class="text-sm font-medium text-gray-700 hidden sm:block">User</span>
+                <button onclick="userLogout()" class="text-gray-400 hover:text-red-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- pop-up window -->
+    <div id="mainFormModal" class="modal-overlay hidden" > 
+        <div class="modal-content bg-white p-6 md:p-10 w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/3 rounded-xl shadow-2xl" onclick="event.stopPropagation()">
+            
+            <div class="flex justify-between items-center mb-6 border-b pb-2">
+                <h2 class="text-2xl font-semibold text-gray-800" data-i18n="login_modal_title">Login 🔒</h2>
+                <button onclick="closeModal('mainFormModal')" class="close-modal text-gray-500 hover:text-gray-900 text-3xl leading-none">
+                    &times;
+                </button>
+            </div>
+            
+            <form id="loginForm" class="space-y-6">
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700" data-i18n="label_email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        class="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="you@example.com"
+                        data-i18n="ph_email"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password"
+                        class="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="••••••••"
+                        required
+                    >
+                </div>
+                <div id="loginErrorMsg" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100" role="alert">
+                    <span class="font-medium">Login failed!</span> Invalid email or password.
+                </div>
+
+                <button 
+                    type="submit" 
+                    data-i18n="btn_signin"
+                    class="w-full flex items-center justify-center py-3 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+                >
+                    Sign In
+                </button>
+
+            </form>
+            
+            </div>
+    </div>
+    <!-- Main -->
+    <div class="max-w-7xl mx-auto">
+        <!-- Main Title -->
+        <div class="max-w-7xl mx-auto">
+        <!-- Auth Cotainer -->
+        <div id="authContainer" class="flex justify-end items-center mb-4">
+    
+        </div>
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center" data-i18n="main_title">ဆံပင်ညပ်ဆိုင်ရဲ့အသုံးစရိတ်များ 💰</h1>
+        <!-- show balance -->
+         <div class="mb-8 text-center">
+            <div class="inline-block p-4 bg-white rounded-lg shadow border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider" data-i18n="card_balance_label">လက်ရှိကဒ်ထဲမှပိုက်ဆံ</h3>
+                <span id="cardBalanceAmount" class="text-4xl font-bold text-blue-600">
+                    ¥0
+                </span>
+            </div>
+        </div>
+        <!-- Main Tabs -->
+        <div class="mb-4 border-b border-gray-200">
+            <nav class="flex space-x-2 sm:space-x-4 -mb-px" role="tablist" aria-label="Tabs">
+                <button
+                    id="history-tab"
+                    onclick="showTab('history')"
+                    type="button"
+                    role="tab"
+                    aria-controls="history"
+                    class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out active"
+                    data-tab-target="#history"
+                    data-i18n="tab_history"
+                >
+                    အသုံးပြုဇယား 📊
+                </button>
+                <button
+                    id="balances-tab"
+                    onclick="showTab('balances')"
+                    type="button"
+                    role="tab"
+                    aria-controls="balances"
+                    class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out"
+                    data-tab-target="#balances"
+                    data-i18n="tab_balances"
+                >
+                    လက်ကျန်ငွေ 🧑‍🤝‍🧑
+                </button>
+                <button
+                    id="new-transaction-tab"
+                    
+                    type="button"
+                    role="tab"
+                    onclick="showTab('new-transaction')"
+                    aria-controls="new-transaction"
+                    class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out"
+                    data-tab-target="#new-transaction"
+                    data-i18n="tab_new_trans"
+                >
+                    အသုံးစရိတ်ထည့်သွင်းရန် ✍️
+                </button>
+                <button
+                    id="top-up-tab"
+                    onclick="showTab('top-up')"
+                    type="button"
+                    role="tab"
+                    aria-controls="top-up"
+                    class="tab-button py-2 px-3 sm:px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300 transition duration-150 ease-in-out"
+                    data-tab-target="#top-up"
+                    data-i18n="tab_topup"
+                >
+                    ပိုက်ဆံဖြည့်ရန် ⬆️💳
+                </button>
+            </nav>
+        </div>
+        <!-- Main Transaction History -->
+        <div id="tab-content">
+            
+            <div id="history" role="tabpanel" aria-labelledby="history-tab" class="bg-gray-50 p-4 md:p-6 rounded-xl">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6" data-i18n="history_title">အသုံးပြုထားသောစာရင်းများ</h2>
+                
+                <div id="transactionList" class="space-y-4">
+                    </div>
+
+                <div id="history-empty-state" class="hidden flex flex-col items-center justify-center py-12 px-4 text-center animate-fade-in">
+                    <div class="bg-gray-100 rounded-full p-6 mb-4 shadow-inner">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1" data-i18n="history_empty_title">No Transactions Yet</h3>
+                    <p class="text-sm text-gray-500 max-w-xs" data-i18n="history_empty_msg">
+                        It looks like there is no history data available. New transactions will appear here.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="balances" role="tabpanel" aria-labelledby="balances-tab" class="hidden bg-gray-50 p-4 md:p-6 rounded-xl">
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-6" data-i18n="balances_user_title">သင်ရဲ့အချက်အလက်များ</h2>
+                <div id="selfDatas-empty-state" class="hidden flex flex-col items-center justify-center py-12 px-4 text-center animate-fade-in">
+                    <div class="bg-gray-100 rounded-full p-6 mb-4 shadow-inner">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1" data-i18n="balances_empty_title">No users Yet</h3>
+                    <p class="text-sm text-gray-500 max-w-xs" data-i18n="balances_empty_msg">
+                        It looks like there is no user data available. Current user will appear here.
+                    </p>
+                </div><!--<div id="selfDatas-empty-state" -->
+                <div id="selfDatas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        
+                    <!-- //// -->
+                    <div class="flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            
+                            <div class="flip-card-front h-[304px] bg-white p-6 shadow-sm border border-gray-200 relative overflow-hidden">
+                                <div class="absolute top-0 left-0 right-0 h-1 bg-red-500"></div>
+                                
+                                <div class="flex justify-between items-start mb-4 mt-2">
+                                    <div class="flex items-center gap-3 text-left">
+                                        <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-lg">JD</div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900 leading-tight">Jane Doe</h3>
+                                            <p class="text-xs text-gray-500">Creditor: John Smith</p>
+                                        </div>
+                                    </div><!--- <div class="flex items-center gap-3 text-left"> ends -->
+                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 animate-pulse" data-i18n="card_status_unpaid">UNPAID</span>
+                                </div>
+
+                                <div class="bg-red-50 p-3 rounded-lg text-center border border-red-100 mb-4">
+                                    <p class="text-xs text-red-500 uppercase tracking-wide" data-i18n="card_my_debt">My Debt</p>
+                                    <p class="text-2xl font-bold text-red-600">-1200円</p>
+                                </div>
+
+                                <div class="text-xs text-gray-400 mt-auto" ><span data-i18n="card_click_pay">Click to Pay Back</span><span class="text-lg">↻</span></div>
+                            </div><!--- <div class="flip-card-front h-[304px] bg-white ... ends -->
+
+                            <div class="flip-card-back bg-gray-900 p-6 shadow-lg border border-gray-800 relative overflow-hidden">
+                                <div class="flex flex-col h-full justify-center items-center gap-4">
+                                    <div class="text-white text-lg font-bold">Pay Back Jane?</div>
+                                    <p class="text-gray-400 text-sm">Clicking this will notify Jane that you have sent the money.</p>
+                                    
+                                    <button onclick="event.stopPropagation(); handlePayBack('user_id')" class="w-full py-3 rounded-xl text-white font-bold bg-gradient-to-r from-red-500 to-pink-600 shadow-lg hover:shadow-red-500/30 transform transition active:scale-95">
+                                        💸 Mark as Paid
+                                    </button>
+                                    
+                                    <button class="text-gray-500 text-xs hover:text-white mt-2">Cancel / Go Back</button>
+                                </div><!--- <div class="flex flex-col h-full justify-center... ends -->
+                            </div><!-- <div class="flip-card-back bg-gray-900 p-6... ends -->
+
+                        </div><!-- <div class="flip-card-inner"> ends -->
+                    </div><!-- <div class="flip-card cursor-pointer" -->
+                
+
+                    <div class="flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            
+                            <div class="flip-card-front bg-white p-6 shadow-sm border border-gray-200 relative overflow-hidden">
+                                <div class="absolute top-0 left-0 right-0 h-1 bg-yellow-500"></div>
+
+                                <div class="flex justify-between items-start mb-4 mt-2">
+                                    <div class="flex items-center gap-3 text-left">
+                                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-lg">BM</div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900 leading-tight">Bhone Mann</h3>
+                                            <p class="text-xs text-gray-500">Status: Paying you...</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 animate-pulse">WAITING</span>
+                                </div>
+
+                                <div class="bg-yellow-50 p-3 rounded-lg text-center border border-yellow-100 mb-4">
+                                    <p class="text-xs text-yellow-600 uppercase tracking-wide">Incoming Payment</p>
+                                    <p class="text-2xl font-bold text-gray-800">1200円</p>
+                                </div>
+
+                                <div class="text-xs text-gray-400 mt-auto">Click to Confirm <span class="text-lg">↻</span></div>
+                            </div>
+
+                            <div class="flip-card-back bg-yellow-50 p-6 shadow-lg border border-yellow-200">
+                                <div class="flex flex-col h-full justify-center items-center gap-3">
+                                    <div class="h-12 w-12 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center text-2xl mb-2">?</div>
+                                    
+                                    <div class="text-gray-800 text-lg font-bold">Did you accept?</div>
+                                    <p class="text-gray-500 text-xs mb-4">Bhone Mann says he paid you.</p>
+
+                                    <button onclick="event.stopPropagation(); handleAccept('user_id')" class="w-full py-2.5 rounded-lg text-white font-bold bg-green-500 hover:bg-green-600 shadow-md transition active:scale-95">
+                                        Yes, Received ✅
+                                    </button>
+
+                                    <button onclick="event.stopPropagation(); handleReject('user_id')" class="w-full py-2.5 rounded-lg text-gray-600 font-bold bg-white border border-gray-300 hover:bg-gray-50 transition active:scale-95">
+                                        No, Not Yet
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            
+                            <div class="flip-card-front h-[304px] bg-white p-6 shadow-sm border border-gray-200">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center gap-3 text-left">
+                                        <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-lg">JS</div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900 leading-tight">John Smith</h3>
+                                            <p class="text-xs text-gray-500">All settled</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">PAID</span>
+                                </div>
+
+                                <div class="bg-gray-50 p-3 rounded-lg text-center mb-4">
+                                    <p class="text-xs text-gray-500 uppercase tracking-wide">Total Cleared</p>
+                                    <p class="text-2xl font-bold text-green-600">1500円</p>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mt-auto">View Details <span class="text-lg">↻</span></div>
+                            </div>
+
+                            <div class="flip-card-back bg-white p-6 shadow-lg border border-green-200">
+                                <div class="flex flex-col h-full justify-center items-center gap-4">
+                                    <div class="text-gray-800 font-bold">Transaction History</div>
+                                    <ul class="text-sm text-gray-500 text-left w-full space-y-2">
+                                        <li class="flex justify-between border-b pb-1"><span>Dec 12</span> <span>+500円</span></li>
+                                        <li class="flex justify-between border-b pb-1"><span>Dec 10</span> <span>+1000円</span></li>
+                                    </ul>
+                                    <button class="text-green-600 font-bold text-sm mt-auto">Download PDF</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- //// -->
+                </div><!-- <div id="selfDatas" class="grid... ends -->
+
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-6" data-i18n="members_title">အဖွဲ့ဝင်စာရင်းများ</h2>
+                <div id="otherUsers-empty-state" class="hidden flex flex-col items-center justify-center py-12 px-4 text-center animate-fade-in">
+                    <div class="bg-gray-100 rounded-full p-6 mb-4 shadow-inner">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1" data-i18n="balances_empty_title">No users Yet</h3>
+                    <p class="text-sm text-gray-500 max-w-xs" data-i18n="balances_empty_msg">
+                        It looks like there is no user data available. The users will appear here.
+                    </p>
+                </div><!--<div id="otherUsers-empty-state" -->
+                <div id="otherMembersDatas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                    <!-- //// -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-200 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-green-500"></div>
+
+                        <div class="flex justify-between items-start mb-4 mt-2">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-lg">
+                                    JD
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900 leading-tight">Jane Doe</h3>
+                                    <p class="text-xs text-gray-500">Creditor: John Smith</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">
+                            PAID
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gray-50 p-3 rounded-lg text-center">
+                                <p class="text-xs text-green-500 uppercase tracking-wide">ပမာဏ</p>
+                                <p class="text-lg font-bold text-green-400">+1200円</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg text-center border border-gray-100 bg-gray-50">
+                                <p class="text-xs text-gray-500 uppercase tracking-wide">အကြွေး</p>
+                                <p class="text-lg font-bold text-gray-600">0円</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-200 relative overflow-hidden">
+    
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-red-500"></div>
+
+                        <div class="flex justify-between items-start mb-4 mt-2">
+                            
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-lg">
+                                    JD
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900 leading-tight">Jane Doe</h3>
+                                    <p class="text-xs text-gray-500">Creditor: John Smith</p>
+                                </div>
+                            </div>
+
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 animate-pulse">
+                                UNPAID
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gray-50 p-3 rounded-lg text-center">
+                                <p class="text-xs text-gray-500 uppercase tracking-wide">ပမာဏ</p>
+                                <p class="text-lg font-bold text-gray-400">0円</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded-lg text-center border border-red-100 bg-red-50">
+                                <p class="text-xs text-red-500 uppercase tracking-wide">အကြွေး</p>
+                                <p class="text-lg font-bold text-red-600">-1200円</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- //// -->
+                </div><!-- <div id="otherMembersDatas" class="grid grid-cols-1 ends -->  
+            </div> <!-- <div id="balances" ends -->
+
+            <!-- Main New Transaction -->
+            <div id="new-transaction" role="tabpanel" aria-labelledby="new-transaction-tab" class="card bg-white p-6 md:p-10 hidden">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2" data-i18n="trans_form_title">သုံးထားတဲ့ပမာဏထည့်သွင်းပါ</h2>
+                <!-- Main New Transaction Form -->
+                <form id="new-transaction-form" class="space-y-6">
+
+                    <div>
+                        <label for="usedAmount" class="block text-sm font-medium text-gray-700" data-i18n="label_used_amount">သုံးထားတဲ့ပမာဏ(円)</label>
+                        <input 
+                            type="text" 
+                            inputmode="numeric" 
+                            pattern="[0-9]*"
+                            id="usedAmount"
+                            autocomplete="off" 
+                            class="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none"
+                            placeholder="e.g., 500"
+                            data-i18n="ph_amount"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" 
+                    id="trans-submit"
+                    data-i18n="btn_submit_trans"
+                    class="w-full flex justify-center py-3 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                        ထည့်သွင်းမည်
+                    </button>
+                </form>
+            </div>
+            <!-- Main New Transaction ends -->
+            <!-- Main Top-Up  -->
+            <div id="top-up" role="tabpanel" aria-labelledby="top-up-tab" class="card bg-white p-6 md:p-10 hidden">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2" data-i18n="topup_form_title">ပိုက်ဆံဖြည့်ရန်</h2>
+                <!-- Main Top-Up Form -->
+                <form id="top-up-form" class="space-y-6">
+
+                    <div>
+                        <label for="topUpAmount" class="block text-sm font-medium text-gray-700" data-i18n="label_topup_amount">ပိုက်ဆံဖြည့်ထားတဲ့ပမာဏ (円)</label>
+                        <input 
+                            type="text" 
+                            inputmode="numeric" 
+                            pattern="[0-9]*"
+                            id="topUpAmount" 
+                            autocomplete="off"
+                            class="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none"
+                            placeholder="e.g., 500"
+                            data-i18n="ph_amount"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" 
+                    id="topup-submit"
+                    data-i18n="btn_submit_topup"
+                    class="w-full flex justify-center py-3 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                        ဖြည့်မည်
+                    </button>
+                </form>
+            </div>
+            <!-- Main Top-Up  ends -->
+
+        </div> <!-- <div id="tab-content">  ends -->
+    </div>
+    <!-- toast alert -->
+    <div id="toastAlert" 
+        class="toast-alert fixed top-4 left-1/2 p-4 rounded-md shadow-lg text-white bg-blue-600"
+        role="alert">
+        <span id="toastMessage">Success! Action completed.</span>
+    </div>
+    <!-- confirmation modal -->
+    <div id="confirmationModal" class="modal-overlay hidden" onclick="closeModal(event, 'confirmationModal')"> 
+        <div class="modal-content bg-white p-6 md:p-10 w-11/12 sm:w-auto rounded-xl shadow-2xl" onclick="event.stopPropagation()">
+            
+            <div class="flex items-start">
+                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 data-i18n="title_confirm_action" class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                        Confirm Action
+                    </h3>
+                    <div class="mt-2">
+                        <p id="confirmMessage" class="text-sm text-gray-500" data-i18n="msg_confirm_pay_debt">
+                            Are you sure you want to do this? This action cannot be undone.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                <button 
+                    type="button" 
+                    onclick="handleConfirm()"
+                    data-i18n="btn_confirm"
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 sm:ml-3 sm:w-auto sm:text-sm">
+                    Confirm
+                </button>
+                <button 
+                    type="button" 
+                    onclick="handleCancel()"
+                    data-i18n="btn_cancel"
+                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm">
+                    Cancel
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./js/lang.js"></script>
+    <script src="./js/uiUtils.js"></script>
+    <script src="./js/firebaseBundle.js"></script>
+    <!-- <script src="./js/indexBundle.js"></script> -->
+
+</body>
+</html>
