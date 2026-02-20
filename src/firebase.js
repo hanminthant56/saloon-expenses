@@ -33,7 +33,6 @@ const firebaseConfig = {
   measurementId: "G-CSKCFYFNV4"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
@@ -106,23 +105,24 @@ async function getDataOnDocumentID(collectionName, documentID) {
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!
 // +++ Auth Changing Check +++
+// // global current user 
+let currentUser = null;
 onAuthStateChanged(auth, (user)=>{
     if(user) {
     // console.log("got sign in from onAuthStateChanged");
+        currentUser = user;
         hiddenEmptyState();
         //Auth Management
-        manageCurrentUserThings(user.uid);
-        //to set up/ store transaction usage
-        setupTransactionForm(newTransaction, user.uid);
-        //to set up/ store top-up 
-        setupTopUpForm(newTopUp, user.uid);
+        manageCurrentUserThings();
+        // console.log("user.id(auth changed)", user.uid);
         // getTransactions(user.uid);
-        getRealTimeDatas("transactions", getTransactions, user.uid);
+        getRealTimeDatas("transactions", getTransactions);
         // getCardBalance();
         getRealTimeDatas("card", getCardBalance);
         //getUserDatas()
-        getRealTimeDatas("users", getUserDatas, user.uid);
+        getRealTimeDatas("users", getUserDatas);
     }else{
+        currentUser = null;
         handleSignOut();
         getTTButton(disableTTButton);
         clearHTML();
@@ -131,7 +131,14 @@ onAuthStateChanged(auth, (user)=>{
 })
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-async function manageCurrentUserThings(useruid) {
+//running functions here starts
+setupTransactionForm();
+setupTopUpForm();
+
+//running functions here ends
+
+async function manageCurrentUserThings() {
+    const useruid = currentUser.uid;
     try{
         const dataObj = await getDataOnDocumentID("users", useruid);
         // const username = dataObj.name;
@@ -185,7 +192,8 @@ function getCardBalance(snapshot) {
 }
 
 // SSSS transaction section SSSS Starts
-function getTransactions(snapshot, useruid){
+function getTransactions(snapshot){
+    const useruid = currentUser.uid;
     let dataList = []
     snapshot.forEach(doc=>{
         dataList.push({id:doc.id, ...doc.data()});
@@ -196,7 +204,9 @@ function getTransactions(snapshot, useruid){
 }
 
 // // +++ New Transaction +++
-async function newTransaction(usedAmount, datetime, useruid){
+async function newTransaction(usedAmount, datetime){
+    const useruid = currentUser.uid;
+    // console.log("useruid(auth changed)", useruid);
     const usedAmountBeforeCalc = usedAmount;
     let userbalance, cardbalance, oldCardBalance, lastestid = 0;
     let username,userAvatar = "";
@@ -225,7 +235,7 @@ async function newTransaction(usedAmount, datetime, useruid){
         // console.log("data (newTransaction firebase)-",user);
         // *** Transactions
         const transactions = await getAllDatas("transactions");
-        console.log("transactions (transactions firebase)-",transactions);
+        // console.log("transactions (transactions firebase)-",transactions);
         let sortedTrans = transactions.sort((a,b)=>b.id - a.id);
         // console.log("sortedTrans (sortedTrans firebase)-",sortedTrans);
         lastestid = sortedTrans[0] && !isNaN(sortedTrans[0].id)?sortedTrans[0].id:0;
@@ -304,7 +314,7 @@ async function newTransaction(usedAmount, datetime, useruid){
                     }
                 }
                 // console.log("other.oweMe (firebase)-",other.oweMe);
-                console.log("otherUserLeftAmount - ", otherUserLeftAmount);
+                // console.log("otherUserLeftAmount - ", otherUserLeftAmount);
                 updateDataWithDocumentID("users", lenderId, {
                     oweMe: other.oweMe,
                     balance: otherUserLeftAmount
@@ -364,10 +374,10 @@ async function checkUserDebtOwe(useruid, type) {
         }
         
         if (hasData) { 
-            console.log("There is data left!"); 
+            // console.log("There is data left!"); 
             return "yes";
         } else { 
-            console.log("The map is empty."); 
+            // console.log("The map is empty."); 
             return "no";
         }
         // --- YOUR CODE ENDS HERE ---
@@ -378,14 +388,15 @@ async function checkUserDebtOwe(useruid, type) {
 
 // +++ User section 
 
-function getUserDatas(snapshot, useruid){
+function getUserDatas(snapshot){
+    const useruid = currentUser.uid;
     let dataList = []
     snapshot.forEach(doc=>{
         dataList.push({id:doc.id, ...doc.data()});
     });
     const selfDatas = dataList.filter(user=>user.id === useruid);
-    renderSelfList(selfDatas, useruid);
     // console.log("selfDatas getUserDatas - ", selfDatas);
+    renderSelfList(selfDatas, useruid);
     const otherMembersDatas = dataList.filter(user=>user.id !== useruid);
     // console.log("otherMembersDatas getUserDatas - ", otherMembersDatas);
 
@@ -460,7 +471,8 @@ export async function saveSubscriptionToDb(subscription, useruid) {
 
 
 // +++ top up handling +++
-async function newTopUp(topUpAmount, datetime, useruid) {
+async function newTopUp(topUpAmount, datetime) {
+    const useruid = currentUser.uid;
     let userbalance, cardbalance, oldCardBalance, lastestid = 0;
     let username = "";
     // console.log("userdatas(newTransaction firebase)",userdatas);
@@ -515,3 +527,4 @@ async function newTopUp(topUpAmount, datetime, useruid) {
 window.userLogout = userLogout;
 window.handlePayBack = handlePayBack;
 window.handleAccept = handleAccept;
+window.newTransaction = newTransaction;

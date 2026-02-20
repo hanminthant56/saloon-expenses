@@ -205,6 +205,7 @@ function handleSignIn(username, userAvatar){
     //show the user name
     userName.textContent = username;
     getTTButton(enableTTButton);
+    // console.log("handleSignIn is running");
 }
 
 // +++ logout button  +++
@@ -250,7 +251,7 @@ function setUpCardbalance(cardbalance) {
 
 // SSSS transaction section SSSS Starts
 // // +++ new Transaction or Usage
-function setupTransactionForm(callback, useruid){
+function setupTransactionForm(){
 
     const transForm = document.getElementById('new-transaction-form');
     if (transForm) {
@@ -267,7 +268,7 @@ function setupTransactionForm(callback, useruid){
             }
             showConfirm(transacTrans.confirmText, ()=>{
                 // Call the callback
-                callback(usedAmount, datetime, useruid);
+                newTransaction(usedAmount, datetime);//this is from firebase.js
             })
             
             usedAmountEle.value = "";
@@ -651,7 +652,7 @@ function renderOtherUsersList(otherMembersDatas){
 // SSSS user section SSSS End
 
 // // +++ top-up
-function setupTopUpForm(callback, useruid){
+function setupTopUpForm(){
 
     const topUpForm = document.getElementById('top-up-form');
     if (topUpForm) {
@@ -669,7 +670,7 @@ function setupTopUpForm(callback, useruid){
             const datetime = getCurrentDateTime();
             showConfirm(topupTrans.confirmText, ()=>{
                 // Call the callback
-                callback(topUpAmount, datetime, useruid);
+                newTopUp(topUpAmount, datetime);
             });
             
             topUpAmountEle.value = "";
